@@ -1,0 +1,90 @@
+#pragma once
+#include
+using namespace std;
+#include
+//#define maxsize 256 //为了考虑到最后的初始化的时候用数组，所以这里在对构造函数的重写中使用了宏定义的顺序表大小
+template
+class seqlist //顺序表的类定义比静动态存储更重要
+{
+public:
+T* data;
+int maxsize;
+//int length;
+int last; //从0开始的最后一个元素的下标，即数组表长-1
+public:
+//void initlist(seqlist& L);//初始化顺序表,不用数组初始化，用插入数据函数初始化+for循环
+//seqlist(T a[], int sz); //重新写一个构造函数，可以直接用对应数组的元素来初始化对应的顺序表
+seqlist(int sz); //构造函数，参数sz指定数组的大小
+int search(T& x); //查找元素x，引用可以理解，找到之后用int返回其位置
+bool insert(T x, int i); //在位置顺序i处插入元素x，插入成功则返回true，否则返回false
+bool remove(T& x); //删除元素x，若有多个元素，则只删除第一个，删除成功则返回true，否则false
+};
+
+template
+seqlist::seqlist(int sz) //构建空表，之后用insert函数来插入数据（用1个for循环）
+{
+if (sz > 0)
+{
+maxsize = sz; //数组大小数据更新
+last = -1; //表长数据,空表
+data =new T [maxsize];
+if (data == NULL) //数组（地址，大小）+表长元素都有了，数组动态分配的检查
+{
+cerr << “存储分配错误” << endl;
+exit(1);
+}
+}
+}
+template
+int seqlist:: search(T& x) //查找元素x，引用可以理解，找到之后用int返回其位置
+{
+int i = 0;
+while (i <= last && data[i] != x)
+{
+i++;
+}
+if (i > last) //跳出循环之一是超出下标，则没找到
+{
+return -1;
+}
+else //否则就是找到了该元素
+{
+return i;
+}
+}
+template
+bool seqlist::insert(T x, int i) //在位置顺序i处插入元素x，插入成功则返回true，否则返回false
+{
+if (i<0 || i>last + 1 || last + 1 == maxsize) //统一先判断能否插入，即插入的时候位置是否合适（空表-1或者是last+1，以及表满了，表长last+1=数组大小
+{
+return false; //不能插入
+}
+else
+{
+last++;
+for (int j = last; j >=i; j–) //从后面往前面循环，依次后移一个位置
+{
+data[j] = data[j - 1];
+}
+data[i] = x;
+return true; //插入成功
+}
+}
+template
+bool seqlist:: remove(T& x)//删除元素x，若有多个元素，则只删除第一个，删除成功则返回true，否则false
+{
+int i = search(x); //先找到x在顺序表中的位置，在该位置从前往后循环前移一个位置
+if (i >= 0)
+{
+last–;
+for (int j = i; j <= last; j++)
+{
+data[j] = data[j + 1];
+}
+return true; //删除成功
+}
+else
+{
+return false; //表中没有该元素
+}
+}
