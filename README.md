@@ -1,2 +1,2 @@
 # C++
-大一课程 
+freshman class
