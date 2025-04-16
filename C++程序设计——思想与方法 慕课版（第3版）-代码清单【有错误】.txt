@@ -1,0 +1,5808 @@
+﻿代码清单2 - 1  求解一元二次方程
+// 文件名: 2-1.cpp
+//  用标准公式求解一元二次方程
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	double a, b, c, x1, x2, dlt;
+
+	cout << "请输入方程的3个系数:" << endl;
+	cin >> a >> b >> c;
+
+	dlt = b * b - 4 * a * c;
+	x1 = (-b + sqrt(dlt)) / 2 / a;
+	x2 = (-b - sqrt(dlt)) / 2 / a;
+
+	cout << "x1=" << x1 << "   x2=" << x2 << endl;
+
+	return 0;
+}
+
+
+
+代码清单3 - 1 计算利息的程序(版本1)
+//文件名:3-1.cpp
+//计算利息
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	const double oneYearRate = 0.025, twoYearRate = 0.028;
+	double balance, interest;
+	int type, startDate, endDate;;
+
+	cout << "请输入存款类型(1:一年期, 2:两年期):";
+	cin >> type;
+	cout << "请输入存款金额:";
+	cin >> balance;
+	cout << "请输入起始日期:";
+	cin >> startDate;
+	cout << "请输入终止日期:";
+	cin >> endDate;
+
+	if (type == 1)
+		interest = pow(1 + oneYearRate, endDate - startDate) * balance - balance;
+	else
+		interest = pow(1 + twoYearRate, endDate - startDate) * balance - balance;
+
+	cout << balance << " 元存 " << endDate - startDate << " 年共得利息 "
+		<< interest << "元" << endl;
+
+	return 0;
+}
+
+
+
+代码清单3 - 2 计算利息的程序(版本2)
+//文件名:3-2.cpp
+//计算利息
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	const double oneYearRate = 0.025, twoYearRate = 0.028;
+	double balance, interest, rate;
+	int startDate, endDate;;
+	char type;
+
+	cout << "请输入存款类型(O:一年期, T:两年期):";
+	cin >> type;
+	cout << "请输入存款金额:";
+	cin >> balance;
+	cout << "请输入起始日期:";
+	cin >> startDate;
+	cout << "请输入终止日期:";
+	cin >> endDate;
+
+	if (type == ‘O’)
+		rate = oneYearRate;
+	else
+		rate = twoYearRate;
+	interest = pow(1 + rate, endDate - startDate) * balance - balance;
+
+	cout << balance << " 元存 " << endDate - startDate << " 年共得利息 "
+		<< interest << "元" << endl;
+
+	return 0;
+}
+
+
+
+
+
+代码清单3 - 3 判断闰年的程序
+//文件名:3-3.cpp
+//判断闰年
+#include <iostream>
+using namespace std;
+
+int main() {
+	int year;
+	bool result;
+
+	cout << "请输入所要验证的年份:";
+	cin >> year;
+
+	result = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+
+	if (result)  cout << year << "是闰年" << endl;
+	else  cout << year << "不是闰年" << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单3 - 4 求一元二次方程解的程序
+//文件名:3-4.cpp
+//求一元二次方程解
+#include <iostream>
+#include <cmath>           //sqrt所属的库
+using namespace std;
+int main() {
+	double a, b, c, x1, x2, dlt;
+
+	cout << "请输入3个参数:" << endl;
+	cout << "输入 a:";   cin >> a;
+	cout << "输入 b:";   cin >> b;
+	cout << "输入 c:";   cin >> c;
+
+	if (a == 0)
+		if (b == 0) cout << "非法方程" << endl;
+		else  cout << "是一元一次方程,x = " << -c / b << endl;
+	else {
+		dlt = b * b - 4 * a * c;
+		if (dlt > 0) {                               //有两个实根
+			x1 = (-b + sqrt(dlt)) / 2 / a;
+			x2 = (-b - sqrt(dlt)) / 2 / a;
+			cout << "x1=" << x1 << "   x2=" << x2 << endl;
+		} else if (dlt == 0)                             //  有两个等根 
+			cout << "x1=x2=" - b / a / 2 << endl;
+		else cout << "无根" << endl;                    //无实根
+	}
+
+	return 0;
+}
+
+
+
+
+代码清单3 - 5 判断点(x, y)是否落在以原点为圆心, r为半径的圆内的程序
+//文件名:3-5.cpp
+//判断点(x, y)是否落在以原点为圆心,r为半径的圆内
+#include <iostream>
+using namespace std;
+
+int main() {
+	double radius, x, y;
+
+	cout << "请输入圆的半径:";
+	cin >> radius;
+	cout << "请输入点的坐标:";
+	cin >> x >> y;
+
+	cout << "点(" << x << ", " << y << ")" << (x*x + y*y <= radius * radius ? "" : "没有")
+		<< "落在圆内" << endl;
+
+	return 0;
+}
+
+
+
+代码清单3 - 6 利息计算程序
+//文件名:3-6.cpp
+//计算利息
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	const double rate1Year = 0.025, rate2Year = 0.028, currentRate = 0.012;
+	double balance, interest;
+	int startDate, endDate, type;
+
+	cout << "请输入存款类型(1:一年期, 2:两年期, 0:活期):";
+	cin >> type;
+	cout << "请输入存款金额:";
+	cin >> balance;
+	cout << "请输入起始日期:";
+	cin >> startDate;
+	cout << "请输入终止日期:";
+	cin >> endDate;
+
+	switch (type) {
+	case 0: interest = pow(1 + currentRate, endDate - startDate) * balance - balance;; break;
+	case 1: interest = pow(1 + rate1Year, endDate - startDate) * balance - balance; break;
+	case 2: interest = pow(1 + rate2Year, endDate - startDate) * balance - balance; break;
+	}
+
+	cout << balance << " 元存 " << endDate - startDate << " 年共得利息 "
+		<< interest << "元" << endl;
+
+	return 0;
+}
+
+
+
+代码清单3 - 7 分数转换程序
+//文件名:3-7.cpp
+//将百分制转换成5个等级(A､B､C､D､E)
+#include <iostream>
+using namespace std;
+
+int main() {
+	int score;
+
+	cout << "请输入分数:";
+	cin >> score;
+
+	switch (score / 10) {
+	case 10:
+	case 9: cout << "A";   break;
+	case 8: cout << "B";   break;
+	case 7: cout << "C";   break;
+	case 6: cout << "D";   break;
+	default: cout << "E";
+	}
+	cout << endl;
+
+	return 0;
+}
+
+
+
+代码清单3 - 8 自动出题程序
+//文件名:3-8.cpp
+//自动出题程序
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+using namespace std;
+
+int main() {
+	int num1, num2, op, result1, result2;            //num1,num2:操作数,op:运算符,
+													 //result1,result2:结果
+
+	srand(time(NULL));                             //随机数种子初始化
+
+	num1 = rand() * 10 / (RAND_MAX + 1);           //生成运算数
+	num2 = rand() * 10 / (RAND_MAX + 1);           //生成运算数
+	op = rand() * 4 / (RAND_MAX + 1);          //生成运算符 0--+,1-- -,2--*,3-- /
+
+	switch (op) {
+	case 0: cout << num1 << "+" << num2 << "=?";
+		cin >> result1;
+		if (num1 + num2 == result1)  cout << "you are right\n";
+		else  cout << "you are wrong\n";
+		break;
+	case 1: cout << num1 << "-" << num2 << "=?";
+		cin >> result1;
+		if (num1 - num2 == result1) cout << "you are right\n";
+		else  cout << "you are wrong\n";
+		break;
+	case 2: cout << num1 << "*" << num2 << "=?";
+		cin >> result1;
+		if (num1*num2 == result1) cout << "you are right\n";
+		else  cout << "you are wrong\n";
+		break;
+	case 3: cout << num1 << "/" << num2 << "=?";
+		cin >> result1;
+		cout << "余数为=?";
+		cin >> result2;
+		if ((num1 / num2 == result1) && (num1 % num2 == result2))
+			cout << "you are right\n";
+		else  cout << "you are wrong\n";
+		break;
+	}
+
+	return 0;
+}
+
+
+代码清单4 - 1 计算10个账户利息的程序
+
+//文件名:4-1.cpp
+//计算10个账户利息的程序
+#include <iostream>
+using namespace std;
+
+int main() {
+	const double rate1Year = 0.025, rate2Year = 0.028, currentRate = 0.012;
+	double balance, interest;
+	int startDate, endDate, type, i;
+
+	for (i = 0; i < 10; ++i) {
+		cout << "请输入存款类型(1:一年期, 2:两年期, 0:活期):";
+		cin >> type;
+		cout << "请输入存款金额:";
+		cin >> balance;
+		cout << "请输入起始日期:";
+		cin >> startDate;
+		cout << "请输入终止日期:";
+		cin >> endDate;
+
+		switch (type) {
+		case 0: interest = pow(1 + currentRate, endDate - startDate) * balance - balance;
+			break;
+		case 1: interest = pow(1 + rate1Year, endDate - startDate) * balance - balance; break;
+		case 2: interest = pow(1 + rate1Year, endDate - startDate) * balance - balance; break;
+		}
+
+		cout << balance << " 元存 " << endDate - startDate << " 年共得利息 "
+			<< interest << "元" << endl;
+	}
+
+	return 0;
+}
+
+
+
+
+
+代码清单4 - 2 统计考试分数的程序
+//文件名:4-2.cpp
+//统计考试分数中的最高分,最低分和平均分
+#include<iostream>
+using namespace std;
+
+int main() {
+	int value, total, max, min, numOfStudent;//value存放当前输入数据
+
+											 //变量的初始化
+	total = 0;
+	max = 0;
+	min = 100;
+
+	cout << “请输入学生人数:”;
+	cin >> numOfStudent;
+
+	for (int i = 1; i <= numOfStudent; ++i) {          // 控制处理n个学生的信息
+		cout << "\n请输入第" << i << "个人的成绩:";
+		cin >> value;
+		total += value;
+		if (value > max) max = value;
+		if (value < min) min = value;
+	}
+
+	cout << "\n最高分:" << max << endl;
+	cout << "最低分:" << min << endl;
+	cout << "平均分:" << total / numOfStudent << endl;
+
+	return 0;
+}
+
+
+
+
+
+代码清单4 - 3 输出字母A - Z的内码
+//文件名:4-3.cpp
+//输出字母A- Z的内码
+#include<iostream>
+using namespace std;
+
+int main() {
+	char ch;
+
+	for (ch = 'A'; ch <= 'Z'; ++ch)
+		cout << ch << '(' << int(ch) << ')' << "  ";
+
+	return 0;
+}
+
+
+
+
+
+代码清单4 - 4 计算1到100之间的素数和
+//文件名:4-4.cpp
+//计算1到100之间的素数和
+#include<iostream>
+using namespace std;
+
+int main() {
+	int num, k, count, sum = 2;              // 2肯定是素数,所以sum初值为2
+
+	for (num = 3; num <= 100; num += 2) {    //检查3到100 之间的每个奇数是否为素数
+		count = 0;
+		for (k = 1; k <= num; k += 2)        //检查小于num的所有奇数
+			if (num % k == 0) ++count;
+		if (count == 2) sum += num;
+	}
+
+	cout << "1到100的素数和是:" << sum << endl;
+
+	return 0;
+}
+
+
+代码清单4 - 5 求输入整数的最大因子
+//文件名:4-5.cpp
+//求输入整数的最大因子
+#include<iostream>
+using namespace std;
+
+int main() {
+	int num, fac;
+
+	cout << "请输入一个整数:";
+	cin >> num;
+
+	for (fac = num / 2; num % fac != 0; --fac);
+
+	cout << num << "的最大因子是:" << fac << endl;
+
+	return 0;
+}
+
+
+代码清单4 - 6 打印九九乘法表的程序
+//文件名:4-6.cpp
+//打印九九乘法表
+#include<iostream>
+using namespace std;
+
+int main() {
+	int i, j;
+
+	for (i = 1; i <= 9; ++i) {
+		for (j = 1; j <= 9; ++j)
+			cout << i*j << '\t';
+		cout << endl;
+	}
+
+	return 0;
+}
+
+
+
+代码清单4 - 7 检查输入是否为素数的程序
+//文件名:4-7.cpp
+//检查输入是否为素数的程序
+#include <iostream>
+using namespace std;
+
+int main() {
+	int num, k;
+
+	cout << "请输入要检测的数:";
+	cin >> num;
+
+	if (num == 2) {                     // 2是素数
+		cout << num << "是素数\n";
+		return 0;
+	}
+	if (num % 2 == 0) {                     // 2以外的偶数不是素数
+		cout << num << "不是素数\n";
+		return 0;
+	}
+
+	for (k = 3; k < num; k += 2)
+		if (num  % k == 0) break;
+
+	if (k < num) cout << num << "不是素数\n";     // 由break跳出循环
+	else cout << num << "是素数\n";               // 正常结束循环
+
+	return 0;
+}
+
+
+
+代码清单4 - 8 输出A､B､C的全排列
+//文件名:4-8.cpp
+//输出A､B､C的全排列
+#include <iostream>
+using namespace std;
+
+int main() {
+	char ch1, ch2, ch3;
+
+	for (ch1 = 'A'; ch1 <= 'C'; ++ch1)                  //  第一个位置的值
+		for (ch2 = 'A'; ch2 <= 'C'; ++ch2)                // 第二个位置的值
+			if (ch2 == ch1) continue;                // 第一个位置的值和第二个位置的值不能相同
+			else for (ch3 = 'A'; ch3 <= 'C'; ++ch3)          // 第三个位置的值
+				if (ch3 == ch1 || ch3 == ch2)
+					continue;                 // 第三个位置的值和第一､二个位置的值不能相同
+				else cout << ch1 << ch2 << ch3 << '\t';    // 输出一个合法的排列
+
+				return 0;
+}
+
+
+代码清单4 - 9 统计分数的程序
+//文件名:4-9.cpp
+//统计考试成绩中的最高分,最低分和平均分
+#include<iostream>
+using namespace std;
+
+int main() {
+	int value, total, max, min, noOfInput;
+
+	total = 0;                 //总分
+	max = 0;
+	min = 100;
+	noOfInput = 0;             //人数
+
+	cout << "请输入第1位学生的成绩:";
+	cin >> value;
+	while (value != -1) {
+		++noOfInput;
+		total += value;
+		if (value > max) max = value;
+		if (value < min) min = value;
+		cout << "\n请输入第" << noOfInput + 1 << "个人的成绩:";
+		cin >> value;
+	}
+
+	cout << "\n最高分:" << max << endl;
+	cout << "最低分:" << min << endl;
+	cout << "平均分:" << total / noOfInput << endl;
+
+	return 0;
+}
+
+
+代码清单4 - 10 计算ex的程序
+//文件名:4-10.cpp
+//计算ex
+#include <iostream>
+using namespace std;
+
+int main() {
+	double ex, x, item;//ex存储ex的值,item保存当前项的值
+	int i;
+
+	cout << "请输入x:";
+	cin >> x;
+
+	ex = 0;
+	item = 1;
+	i = 0;
+
+	while (item > 1e-6) {
+		ex += item;
+		++i;
+		item = item * x / i;
+	}
+
+	cout << "e的" << x << "次方等于:" << ex << endl;
+
+	return 0;
+}
+
+
+
+代码清单  4 - 11  统计句子中各种字符的出现次数
+//文件名:4-11.cpp
+//统计句子中各种字符出现的次数
+#include <iostream>
+using namespace std;
+
+int main() {
+	char ch;
+	int numVowel = 0, numCons = 0, numSpace = 0, numDigit = 0, numOther = 0;
+
+	cout << "请输入句子:";
+	cin.get(ch);                             // 读入一个字符	
+	while (ch != '.') {                      //  处理每个字符
+		if (ch >= 'A' && ch <= 'Z') ch = ch - 'A' + 'a';   // 大写字母转成小写字母
+		if (ch >= 'a' && ch <= 'z')
+			if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') ++numVowel;
+			else ++numCons;
+		else if (ch == ' ') ++numSpace;
+		else if (ch >= '0' && ch <= '9') ++numDigit;
+		else ++numOther;
+		cin.get(ch);                       // 读入一个字符
+	}
+
+	cout << "元音字母数:" << numVowel << endl;
+	cout << "辅音字母数:" << numCons << endl;
+	cout << "空格数:" << numSpace << endl;
+	cout << "数字字符数:" << numDigit << endl;
+	cout << "其他字符数:" << numOther << endl;
+
+	return 0;
+}
+
+
+代码清单4 - 12 求方程的根
+//文件名:4-12.cpp
+//求方程的根
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	double x, x1 = -1, x2 = 1, f2, f1, f, epsilon;
+
+	cout << "请输入精度: ";
+	cin >> epsilon;
+
+	do {
+		f1 = x1 * x1 * x1 + 2 * x1 * x1 + 5 * x1 - 1;     // 计算f(x1)
+		f2 = x2 * x2 * x2 + 2 * x2 * x2 + 5 * x2 - 1;     // 计算f(x2)
+		x = (x1 * f2 - x2 * f1) / (f2 - f1);  // 计算(x1, f(x1))和(x2, f(x2))的弦交与x轴的交点
+		f = x * x * x + 2 * x * x + 5 * x - 1;
+		if (f * f1 > 0) x1 = x;  else x2 = x;             // 修正区间
+	} while (fabs(f) > epsilon);
+
+	cout << "方程的根是:" << x << endl;
+
+	return 0;
+}
+
+
+
+代码清单  4 - 13  求A､B､C､D､E的值(解1)
+//文件名:4-13.cpp
+//求解ABCD×E=DCBA
+#include <iostream>
+using namespace std;
+
+int main() {
+	int A, B, C, D, E, num1, num2;
+
+	for (A = 1; A <= 9; ++A)
+		for (B = 0; B <= 9; ++B) {
+			if (A == B) continue;                                      // A､B不能相等
+			for (C = 0; C <= 9; ++C) {
+				if (C == A || C == B) continue;                       // C不能等于A,也不能等于B
+				for (D = 1; D <= 9; ++D) {
+					if (D == A || D == B || D == C) continue;              // D不能等于A､B､C
+					for (E = 2; E <= 9; ++E) {
+						if (E == A || E == B || E == C || E == D) continue;//E不能等于A､B､C､D
+						num1 = A * 1000 + B * 100 + C * 10 + D;               // 构成数字ABCD
+						num2 = D * 1000 + C * 100 + B * 10 + A;              // 构成数字DCBA
+						if (num1 * E == num2)
+							cout << num1 << '*' << E << '=' << num2 << endl;
+					}
+				}
+			}
+		}
+
+	return 0;
+}
+
+
+代码清单  4 - 14  求A､B､C､D､E的值(解2)
+//文件名:4-14.cpp
+//求解ABCD×E=DCBA
+#include <iostream>
+using namespace std;
+
+int main() {
+	int num1, num2, A, B, C, D, E;
+
+	for (num1 = 1023; num1 <= 9876; ++num1) {                 // 枚举每个可能的4位数
+		A = num1 / 1000;                                        // 取出每一位数字A､B､C､D
+		B = num1 % 1000 / 100;
+		C = num1 % 100 / 10;
+		D = num1 % 10;
+		if (D == 0 || A == B || A == C || A == D || B == C || B == D || C == D) continue;
+		num2 = D * 1000 + C * 100 + B * 10 + A;                  //  构造num2
+		for (E = 2; E <= 9; ++E) {                               //  检查每个可能的E
+			if (E == A || E == B || E == C || E == D) continue;    // E不能等于A､B､C､D
+			if (num1 * E == num2)
+				cout << num1 << '*' << E << '=' << num2 << endl;
+		}
+	}
+
+	return 0;
+}
+
+
+
+
+
+代码清单4 - 15 阶梯问题的程序
+//文件名:4-15.cpp
+//阶梯问题
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	int n;
+
+	for (n = 7; ; n += 7)
+		if (n % 2 == 1 && n % 3 == 2 && n % 5 == 4 && n % 6 == 5) break;
+
+	cout << "满足条件的最短的阶梯长度是:" << n << endl;
+
+	return 0;
+}
+
+
+代码清单4 - 16 水果问题的程序
+//文件名:4-16.cpp
+//水果问题求解
+#include <iostream>
+using namespace std;
+
+int main() {
+	int  mellon, apple, orange; 	//分别表示西瓜数､苹果数和橘子数
+
+	for (mellon = 1; mellon < 15; ++mellon)        	   //对每种可能的西瓜数
+		for (apple = 1; apple < 150 – 10 * mellon; ++apple) {  //当西瓜数给定后可能的苹果数 
+			orange = 150 - 10 * mellon - 3 * apple; 	//剩下的钱全买了橘子
+			if (mellon + apple + orange == 100) { 	//3种水果数之和是否为100
+				cout << "mellon:" << mellon << ' ';
+				cout << "apple:" << apple << ' ';
+				cout << "orange:" << orange << endl;
+			}
+		}
+
+	return 0;
+}
+
+
+
+代码清单4 - 17 贪婪法解硬币找零问题的程序
+//文件名:4-17.cpp
+//贪婪法解硬币找零问题
+#include<iostream>
+using namespace std;
+
+#define ONEFEN  1
+#define TWOFEN  2
+#define FIVEFEN  5
+#define ONEJIAO  10
+
+int main() {
+	int money;
+	int onefen = 0, twofen = 0, fivefen = 0, onejiao = 0;
+
+	cout << "输入要找零的钱(以分为单位):";  cin >> money;
+
+	//不断尝试每一种硬币 
+	if (money >= ONEJIAO) { onejiao = money / ONEJIAO; money %= ONEJIAO; }
+	if (money >= FIVEFEN) { fivefen = 1; money -= FIVEFEN; }
+	if (money >= TWOFEN) { twofen = money / TWOFEN; money %= TWOFEN; }
+	if (money >= ONEFEN) onefen = 1;
+
+	//输出结果
+	cout << "1角硬币数:" << onejiao << endl;
+	cout << "5分硬币数:" << fivefen << endl;
+	cout << "2分硬币数:" << twofen << endl;
+	cout << "1分硬币数:" << onefen << endl;
+
+	return 0;
+}
+
+
+代码清单4 - 18 找出由5､6､2､9､4､1的3个数字组成的最大的3位数的程序
+//文件名:4-18.cpp
+//找出由5､6､2､9､4､1的3个数字组成的最大的3位数的程序
+#include <iostream>
+using namespace std;
+
+int main() {
+	int num = 0, max = 10, current;
+
+	for (int digit = 100; digit > 0; digit /= 10) {
+		current = 0;
+		for (int n : {5, 6, 2, 4, 9, 1})
+			if (n > current && n < max) current = n;
+		num += digit * current;
+		max = current;
+	}
+
+	cout << num << '\t';
+
+	return 0;
+}
+
+
+
+代码清单5 - 1 数组的输入 / 输出
+//文件名:5-1.cpp
+//数组输入/输出示例
+#include <iostream>
+using namespace std;
+
+int main() {
+	int a[10], i;
+
+	cout << "请输入10个整型数:\n";
+	for (i = 0; i < 10; ++i)
+		cin >> a[i];
+
+	cout << "\n数组的内容为:\n";
+	for (i = 0; i < 10; ++i)
+		cout << a[i] << '\t';
+
+	return 0;
+}
+
+
+
+代码清单5 - 2 统计某次考试的平均成绩和均方差
+//文件名:5-2.cpp
+//统计某次考试的平均成绩和均方差
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	const int MAX = 100;        //定义一个班级中最多的学生数
+	int score[MAX], num = 0;    // num:某次考试的真实人数
+	double average = 0, variance = 0;
+
+	cout << "请输入成绩(-1表示结束):\n";
+	for (num = 0; num < MAX; ++num) {      // 输入并统计成绩总和
+		cin >> score[num];
+		if (score[num] == -1) break;
+		average += score[num];
+	}
+
+	average = average / num;     	     //计算平均成绩
+
+	for (int i = 0; i < num; ++i)   	//计算均方差
+		variance += (average - score[i]) * (average - score[i]);
+	variance = sqrt(variance / num);
+
+	cout << "平均分是:" << average << "\n均方差是:" << variance << endl;
+
+	return 0;
+}
+
+
+
+代码清单5 - 3 计算两个十维向量的数量积
+//文件名:5-3.cpp
+//计算两个十维向量的数量积
+#include <iostream>
+using namespace std;
+
+int main() {
+	const int MAX = 10;
+	double a[MAX], b[MAX], result = 0;
+	int i;
+
+	// 输入向量a
+	cout << "请输入向量a的十个分量:";
+	for (i = 0; i < MAX; ++i)
+		cin >> a[i];
+
+	// 输入向量b
+	cout << "请输入向量b的十个分量:";
+	for (i = 0; i < MAX; ++i)
+		cin >> b[i];
+
+	// 计算a,b的数量积
+	for (i = 0; i < MAX; ++i)
+		result += a[i] * b[i];
+
+	cout << "a,b的数量积是:" << result << endl;
+
+	return 0;
+}
+
+
+
+代码清单5 - 4 顺序查找
+//文件名:5-4.cpp
+//顺序查找
+#include <iostream>
+using namespace std;
+
+int main() {
+	int  k, x;
+	int array[] = { 2, 3, 1, 7, 5, 8, 9, 0, 4, 6 };
+
+	cout << "请输入要查找的数据:";
+	cin >> x;
+
+	for (k = 0; k < 10; ++k)
+		if (x == array[k])  break;
+
+	if (k == 10) cout << "没有找到";
+	else cout << x << "的存储位置为:" << k
+
+		return 0;
+}
+
+
+代码清单5 - 5 二分查找程序
+//文件名:5-5.cpp
+//二分查找
+#include <iostream>
+using namespace std;
+
+int main() {
+	int low, high, mid, x;
+	int array[] = { 0,1,2,3,4,5,6,7,8,9 };
+
+	cout << "请输入要查找的数据:";  cin >> x;
+
+	low = 0;  high = 9;
+	while (low <= high) {           // 查找区间存在
+		mid = (low + high) / 2;       // 计算中间位置
+		if (x == array[mid])  break;    // 找到
+		if (x < array[mid]) high = mid - 1; else low = mid + 1; // 修改查找区间
+	}
+
+	if (low > high) cout << "没有找到" << endl;
+	else cout << x << "的位置是:" << mid << endl;
+
+	return 0;
+}
+
+
+
+代码清单5 - 6 直接选择排序的程序
+//文件名:5-6.cpp
+//直接选择排序
+#include <iostream>
+using namespace std;
+
+int main() {
+	int lh, rh, k, tmp;
+	int array[] = { 2, 5, 1, 9, 10, 0, 4, 8, 7, 6 };
+
+	for (lh = 0; lh < 10; ++lh) {         // 依次将正确的元素放入array[lh]
+		rh = lh;
+		for (k = lh; k < 10; ++k)           // 找出从lh到最后一个元素中的最小元素的下标rh
+			if (array[k] < array[rh])   rh = k;
+		tmp = array[lh];                    //交换lh和rh的值
+		array[lh] = array[rh];
+		array[rh] = tmp;
+	}
+
+	for (lh = 0; lh < 10; ++lh)  cout << array[lh] << ' ';
+
+	return 0;
+}
+
+
+
+
+代码清单5 - 7 整型数的冒泡排序的程序
+//文件名:5-7.cpp
+//冒泡排序
+#include <iostream>
+using namespace std;
+
+int main() {
+	int a[] = { 0, 3, 5, 1, 8, 7, 9, 4, 2, 10, 6 };
+	int i, j, tmp;
+	bool flag; //记录一趟起泡中有没有发生过交换
+
+	for (i = 1; i < 11; ++i) {    // 控制10次起泡
+		flag = false;
+		for (j = 0; j < 11 - i; ++j)  // 一次起泡过程
+			if (a[j + 1] < a[j]) {
+				tmp = a[j]; a[j] = a[j + 1]; a[j + 1] = tmp; flag = true;
+			}
+		if (!flag) break; //一趟起泡中没有发生交换,排序提前结束
+	}
+
+	cout << endl;
+	for (i = 0; i < n; ++i)  cout << a[i] << ' ';
+
+	return 0;
+}
+
+
+
+
+代码清单5 - 8 矩阵乘法的程序
+//文件名:5-8.cpp
+//矩阵乘法
+#include <iostream>
+using namespace std;
+#define MAX_SIZE 10  //矩阵的最大规模
+
+int main() {
+	int a[MAX_SIZE][MAX_SIZE], b[MAX_SIZE][MAX_SIZE], c[MAX_SIZE][MAX_SIZE];
+	int i, j, k, NumOfRowA, NumOfColA, NumOfColB;
+
+	//输入A和B的大小
+	cout << "\n输入A的行数､列数和B的列数:";
+	cin >> NumOfRowA >> NumOfColA >> NumOfColB;
+
+	//输入A
+	cout << "\n输入A:\n";
+	for (i = 0; i < NumOfRowA; ++i)
+		for (j = 0; j < NumOfColA; ++j) {
+			cout << "a[" << i << "][" << j << "] = ";
+			cin >> a[i][j];
+		}
+
+	//输入B
+	cout << "\n输入B:\n";
+	for (i = 0; i < NumOfColA; ++i)
+		for (j = 0; j < NumOfColB; ++j) {
+			cout << "b[" << i << "][" << j << "] = ";
+			cin >> b[i][j];
+		}
+
+	//计算A×B
+	for (i = 0; i < NumOfRowA; ++i)
+		for (j = 0; j < NumOfColB; ++j) {
+			c[i][j] = 0;
+			for (k = 0; k < NumOfColA; ++k)   c[i][j] += a[i][k] * b[k][j];
+		}
+
+	//输出C
+	cout << "\n输出C:";
+	for (i = 0; i < NumOfRowA; ++i) {
+		cout << endl;
+		for (j = 0; j < NumOfColB; ++j)  cout << c[i][j] << '\t';
+	}
+
+	return 0;
+}
+
+
+
+
+代码清单5 - 9 打印N阶魔阵的程序
+//文件名:5-9.cpp
+//打印N阶魔阵
+#include <iostream>
+using namespace std;
+
+#define MAX 15 //最高为打印15阶魔阵
+
+int main() {
+	int magic[MAX][MAX] = { 0 }; //将magic每个元素设为0
+	int row, col, count, scale;
+
+	//输入阶数scale  
+	cout << "input scale\n";
+	cin >> scale;
+
+	//生成魔阵  
+	row = 0; col = (scale - 1) / 2; magic[row][col] = 1;
+	for (count = 2; count <= scale * scale; count++) {
+		if (magic[(row - 1 + scale) % scale][(col + 1) % scale] == 0) {
+			row = (row - 1 + scale) % scale;
+			col = (col + 1) % scale;
+		} else  row = (row + 1) % scale;
+		magic[row][col] = count;
+	}
+
+	//输出 
+	for (row = 0; row < scale; row++) {
+		for (col = 0; col < scale; col++)
+			cout << magic[row][col] << '\t';
+		cout << endl;
+	}
+
+	return 0;
+}
+
+
+
+代码清单5 - 10 求解三元一次方程组的程序
+//文件名:5-10.cpp
+//求解三元一次方程组的程序
+#include<iostream>
+using namespace std;
+
+int main() {
+	double a[3][3], b[3], result[3], detA, detB, tmp[3]; // a系数矩阵,b常数项,result存放根
+	int i, j;
+
+	for (i = 0; i < 3; ++i) {
+		cout << "请输入第" << i + 1 << "个方程的3个系数和常数项:";
+		cin >> a[i][0] >> a[i][1] >> a[i][2] >> b[i];
+	}
+
+	detA = a[0][0] * a[1][1] * a[2][2] + a[0][1] * a[1][2] * a[2][0] + a[0][2] * a[1][0] * a[2][1]
+		- a[0][2] * a[1][1] * a[2][0] - a[0][1] * a[1][0] * a[2][2] - a[0][0] * a[1][2] * a[2][1];
+
+	for (i = 0; i < 3; ++i) {    // 求解3个根
+		for (j = 0; j < 3; ++j) {   // 用b替换a矩阵的第i列
+			tmp[j] = a[j][i];
+			a[j][i] = b[j];
+		}
+		detB = a[0][0] * a[1][1] * a[2][2] + a[0][1] * a[1][2] * a[2][0] + a[0][2] * a[1][0] * a[2][1]
+			- a[0][2] * a[1][1] * a[2][0] - a[0][1] * a[1][0] * a[2][2] - a[0][0] * a[1][2] * a[2][1];
+		for (j = 0; j < 3; ++j) a[j][i] = tmp[j];   // 还原a矩阵
+		result[i] = detB / detA;                   // 计算第i个根
+	}
+
+	cout << "x=" << result[0] << ",y=" << result[1] << ",z=" << result[2] << endl;
+
+	return 0;
+}
+
+
+
+代码清单5 - 11 统计单词数的程序
+//文件名:5-11.cpp
+//统计一段文字中的单词个数
+#include <iostream>
+using namespace std;
+
+int main() {
+	const int LEN = 80;
+	char sentence[LEN + 1], prev = ' ';     //prev 表示当前字符的前一字符
+	int i, num = 0;
+
+	cin.getline(sentence, LEN + 1);
+
+	for (i = 0; sentence[i] != '\0'; ++i) {
+		if (prev == ' ' && sentence[i] != ' ') ++num;
+		prev = sentence[i];
+	}
+
+	cout << "单词个数为:" << num << endl;
+
+	return 0;
+}
+
+
+
+代码清单5 - 12 计算输入数据之和
+//文件名:5-12.cpp
+//计算输入数据之和
+#include <iostream>
+using namespace std;
+
+int main() {
+	char str[81];
+	int sum = 0, data, i = 0, flag;   // flag记录当前正在处理的整数的基数
+
+	cin.getline(str, 81);
+	while (str[i] == ‘ ‘) ++i;          // 跳过前置的空格
+
+	while (str[i] != '\0') {              // 取出一个整数加入总和
+										  // 区分基数
+		if (str[i] != '0') flag = 10;       // 十进制
+		else {
+			if (str[i + 1] == 'x' || str[i + 1] == 'X') {   // 十六进制
+				flag = 16;
+				i += 2;
+			} else { flag = 8; ++i; }                       // 八进制
+		}
+
+		// 将字符串表示的整数转换成整型数
+		data = 0;
+		switch (flag) {
+		case 10: while (str[i] != ' ' && str[i] != '\0')
+			data = data * 10 + str[i++] - '0';
+			break;
+		case 8: while (str[i] != ' ' && str[i] != '\0')
+			data = data * 8 + str[i++] - '0';
+			break;
+		case 16: while (str[i] != ' ' && str[i] != '\0') {
+			data = data * 16;
+			if (str[i] >= 'A' && str[i] <= 'F') data += str[i++] - 'A' + 10;
+			else if (str[i] >= 'a' && str[i] <= 'f') data += str[i++] - 'a' + 10;
+			else data += str[i++] - '0';
+		}
+		}
+		sum += data;
+		while (str[i] == ' ') ++i;           // 跳过空格
+	}
+
+	cout << sum << endl;
+
+	return 0;
+}
+
+
+代码清单6 - 1 无参数､无返回值的函数实例
+// 输出一个由5行组成的三角形
+// 用法:PrintStar()
+void  PrintStar() {
+	cout << "    *\n";
+	cout << "   ***\n";
+	cout << "  *****\n";
+	cout << " ********\n";
+	cout << "**********\n";
+}
+
+
+
+代码清单6 - 2 有参数､无返回值的函数实例
+// 输出一个由numOfLine行组成的三角形
+// 用法:PrintStarN(10);
+void PrintStarN(int numOfLine) {
+	int i, j;
+
+	for (i = 1; i <= numOfLine; ++i) {           // 打印第i行
+		cout << endl;
+		for (j = 1; j <= numOfLine - i; ++j)     // 打印前置空格
+			cout << ' ';
+		for (j = 1; j <= 2 * i - 1; ++j)         // 打印连续的*号
+			cout << "*";
+	}
+	cout << endl;
+}
+
+
+代码清单6 - 3 有参数､有返回值的函数实例
+// 计算n!
+// 用法:fact = p(n);
+int p(int n) {
+	int s = 1;
+
+	if (n < 0)  return (0);
+	for (int i = 1; i <= n; ++i)  s *= i;
+
+	return(s);
+}
+
+
+
+
+代码清单6 - 4 无参数､有返回值的函数实例
+// 从键盘获取一个1 – 10之间的整数
+// 用法:num = getInput();
+int getInput() {
+	int num;
+
+	while (true) {
+		cin >> num;
+		if (num >= 1 && num <= 10) return num;
+	}
+}
+
+
+
+代码清单6 - 5 返回布尔值的函数实例
+// 判断某个年份是否闰年
+// 用法:if (isLeapYear(2016))……
+bool IsLeapYear(int year) {
+	bool leapyear;
+
+	leapyear = (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+
+	return (leapyear);
+}
+
+
+
+
+
+代码清单6 - 6 函数的使用
+//文件名:6-6.cpp
+//多函数程序的组成及函数的使用
+#include <iostream>
+using namespace std;
+
+void PrintStar(int);                  //函数原型声明
+
+									  //主程序
+int main() {
+	int n;
+
+	cout << "请输入要打印的行数:";
+	cin >> n;
+
+	printstar(n); //函数调用,n为实际参数
+
+	return 0;
+}
+
+//函数:PrintStar
+//用法:PrintStar(numOfLine)
+//作用:在屏幕上显示一个由numOfLine行组成的三角形
+void PrintStar(int numOfLine) {
+	int i, j;
+
+	for (i = 1; i <= numOfLine; ++i) {
+		cout << endl;
+		for (j = 1; j <= numOfLine - i; ++j)  cout << ' ';
+		for (j = 1; j <= 2 * i - 1; ++j)  cout << "*";
+	}
+	cout << endl;
+}
+
+
+
+代码清单6 - 7 函数调用实例
+//文件名:6-7.cpp
+//函数调用示例
+int p(int);
+int max(int a, int b);
+
+int main() {
+	int x, y;
+
+	cin >> x >> y;
+	cout << max(x, y);
+
+	return 0;
+}
+
+int p(int n) {
+	int s = 1;
+
+	if (n < 0) return(0);
+	for (int i = 1; i <= n; ++i)   s *= i;
+
+	return(s);
+}
+
+int max(int a, int b) {
+	int n1, n2;
+
+	n1 = p(a);
+	n2 = p(b);
+
+	return (n1 > n2 ? n1 : n2);
+}
+
+
+
+代码清单6 - 8 全局变量实例
+//文件名:6-8.cpp
+//全局变量示例
+#include <iostream>
+using namespace std;
+
+void f1();
+void f2();
+int g = 15;
+
+int main() {
+	cout << g << endl;
+	f1();
+	f2();
+
+	return 0;
+}
+
+void f1() {
+	g = 20;
+}
+
+void f2() {
+	cout << g << endl;
+}
+
+
+代码清单6 - 9 静态局部变量的应用
+//文件名:6-9.cpp
+//静态局部变量的使用
+#include<iostream>
+using namespace std;
+
+int f(int a);
+
+int main() {
+	int a = 2;
+
+	for (int i = 0; i < 3; ++i)  cout << f(a);
+
+	return 0;
+}
+
+int f(int a) {
+	int b = 0;
+	static int c = 3;
+
+	b = b + 1;   c = c + 1;
+
+	return(a + b + c);
+}
+
+
+代码清单6 - 10 全局变量的错误用法
+//文件名:6-10.cpp
+//全局变量的错误用法
+#include <iostream>
+using namespace std;
+void f();
+
+int main() {
+	f();
+	cout << "in main(): x= " << x << endl;
+	return 0;
+}
+
+int x;
+
+void f() {
+	cout << "in f(): x= " << x << endl;
+}
+
+
+
+代码清单6 - 11 外部变量应用实例
+// file1.cpp
+// 外部变量的应用
+#include <iostream>
+using namespace std;
+
+void f();
+extern x; 	//外部变量的声明
+
+int main() {
+	f();
+	cout << "in main(): x= " << x << endl;
+	return 0;
+}
+
+//file2.cpp
+
+#include <iostream>
+using namespace std;
+
+int x; 	//全局变量的定义
+
+void f() {
+	cout << "in f(): x= " << x << endl;
+}
+
+
+代码清单6 - 12 计算10位学生的平均成绩的函数及使用
+//文件名:6-12.cpp
+//计算10位学生的平均成绩的函数及使用
+#include <iostream>
+using namespace std;
+
+int average(int array[10]); //函数原型声明
+
+int main() {
+	int i, score[10];
+
+	cout << "请输入10个成绩:" << endl;
+	for (i = 0; i < 10; i++)  cin >> score[i];
+
+	cout << "平均成绩是:" << average(score) << endl;
+
+	return 0;
+}
+
+int average(int array[10]) {
+	int i, sum = 0;
+
+	for (i = 0; i < 10; ++i)  sum += array[i];
+
+	return sum / 10;
+}
+
+
+代码清单6 - 13 整型数据逆序输出的程序
+//文件名:6-13.cpp
+//读入一串整型数据,将其逆序排列并输出排列后的数据｡最多允许处理10个数据
+#include <iostream>
+using namespace std;
+
+#define MAX 10
+
+int ReadIntegerArray(int array[], int max, int flag);
+void ReverseIntegerArray(int array[], int size);
+void PrintIntegerArray(int array[], int size);
+
+int main() {
+	int IntegerArray[MAX], flag, CurrentSize;
+
+	cout << "请输入结束标记:";
+	cin >> flag;
+
+	CurrentSize = ReadIntegerArray(IntegerArray, MAX, flag);
+	ReverseIntegerArray(IntegerArray, CurrentSize);
+	PrintIntegerArray(IntegerArray, CurrentSize);
+
+	return 0;
+}
+
+//函数:ReadIntegerArray
+//作用:接收用户的输入,存入数组array,max是array的大小,flag是输入结束标记｡
+//当输入数据个数达到最大长度或输入了flag时结束
+int ReadIntegerArray(int array[], int max, int flag) {
+	int size = 0;
+
+	cout << "请输入数组元素,以" << flag << "结束::";
+	while (size < max) {
+		cin >> array[size];
+		if (array[size] == flag) break; else ++size;
+	}
+
+	return size;
+}
+
+//函数:ReverseIntegerArray
+//作用:将array中的元素按逆序存放,size为元素个数
+void ReverseIntegerArray(int array[], int size) {
+	int i, tmp;
+
+	for (i = 0; i < size / 2; i++) {
+		tmp = array[i];
+		array[i] = array[size - i - 1];
+		array[size - i - 1] = tmp;
+	}
+}
+
+//函数:PrintIntegerArray
+//作用:将array中的元素显示在屏幕上｡size是array中元素的个数
+void PrintIntegerArray(int array[], int size) {
+	int i;
+
+	if (size == 0) return;
+	cout << "逆序是:" << endl;
+	for (i = 0; i < size; ++i)  cout << array[i] << '\t';
+	cout << endl;
+}
+
+
+代码清单6 - 14 函数的使用
+//文件名:6-14.cpp
+//例5.12的另一实现方法
+#include <iostream>
+using namespace std;
+
+int convertToInt(char s[], int start, int base);
+void convertToUpper(char s[]);
+
+int main() {
+	char str[81];
+	int sum = 0, i = 0;
+
+	cin.getline(str, 81);
+	convertToUpper(str);
+	while (str[i] != ' ' && str[i] != '\0') ++i;   // 跳过刚才处理的整数
+
+	while (str[i] != '\0') {
+		if (str[i] != '0') sum += convertToInt(str, i, 10);
+		else {
+			if (str[i + 1] == 'X') sum += convertToInt(str, i + 2, 16);
+			else sum += convertToInt(str, i + 1, 8);
+		}
+
+		while (str[i] != ' ' && str[i] != '\0') ++i;   // 跳过刚才处理的整数
+		while (str[i] == ' ' && str[i] != '\0') ++i;    // 跳过整数之间的空格
+	}
+
+	cout << sum << endl;
+
+	return 0;
+}
+
+void convertToUpper(char s[]) {
+	for (int i = 0; s[i] != '\0'; ++i)
+		if (s[i] >= 'a' && s[i] <= 'z')
+			s[i] = s[i] - 'a' + 'A';
+}
+
+int convertToInt(char s[], int start, int base) {
+	int data = 0;
+	switch (base) {
+	case 10: while (s[start] != ' ' && s[start] != '\0')
+		data = data * 10 + s[start++] - '0';
+		break;
+	case 8: while (s[start] != ' ' && s[start] != '\0')
+		data = data * 8 + s[start++] - '0';
+		break;
+	case 16: while (s[start] != ' ' && s[start] != '\0') {
+		data = data * 16;
+		if (s[start] >= 'A' && s[start] <= 'F') data += s[start++] - 'A' + 10;
+		else data += s[start++] - '0';
+	}
+	}
+	return data;
+}
+
+
+代码清单6 - 15 用内联函数打印平方表和立方表的程序
+//文件名:6-15.cpp
+//用内联函数打印平方表和立方表
+#include <iostream>
+using namespace std;
+
+inline int square(int x) { return x*x; }
+inline int cube(int x) { return x*x*x; }
+
+int main() {
+	int i;
+
+	cout << "x" << '\t' << "x*x" << '\t' << "x*x*x" << endl;
+	for (i = 1; i <= 100; ++i)
+		cout << i << '\t' << square(i) << '\t' << cube(i) << endl;
+
+	return 0;
+}
+
+
+
+代码清单6 - 16 重载函数实例
+//文件名:6-16.cpp
+//重载函数示例
+#include <iostream>
+using namespace std;
+
+int max(int a1, int a2);
+int max(int a1, int a2, int a3);
+int max(int a1, int a2, int a3, int a4);
+int max(int a1, int a2, int a3, int a4, int a5);
+
+int main() {
+	cout << "max(3,5) is " << max(3, 5) << endl;
+	cout << "max(3,5,4) is " << max(3, 5, 4) << endl;
+	cout << "max(3,5,7,9) is " << max(3, 5, 7, 9) << endl;
+	cout << "max(3,5,2,4,6) is " << max(3, 5, 2, 4, 6) << endl;
+
+	return 0;
+}
+
+int max(int a1, int a2) { return a1 > a2 ? a1 : a2; }
+
+int max(int a1, int a2, int a3) {
+	int tmp;
+
+	if (a1 > a2) tmp = a1; else tmp = a2;
+	if (a3 > tmp) tmp = a3;
+
+	return tmp;
+}
+
+int max(int a1, int a2, int a3, int a4) {
+	int tmp;
+
+	if (a1 > a2) tmp = a1; else tmp = a2;
+	if (a3 > tmp) tmp = a3;
+	if (a4 > tmp) tmp = a4;
+
+	return tmp;
+}
+
+int max(int a1, int a2, int a3, int a4, int a5) {
+	int tmp;
+
+	if (a1 > a2) tmp = a1; else tmp = a2;
+	if (a3 > tmp) tmp = a3;
+	if (a4 > tmp) tmp = a4;
+	if (a5 > tmp) tmp = a5;
+
+	return tmp;
+}
+
+
+
+代码清单6 - 17 函数模板的定义及使用
+//文件名:6-17.cpp
+//函数模板的定义及使用
+#include <iostream>
+
+using namespace std;
+template <class T>
+T max(T a, T b) {
+	return  a > b ? a : b;
+}
+
+int main() {
+	cout << "max(3,5) = " << max(3, 5) << endl;
+	cout << "max(3.3, 2.5) = " << max(3.3, 2.5) << endl;
+	cout << "max('d', 'r') = " << max('d', 'r') << endl;
+
+	return 0;
+}
+
+
+
+代码清单6 - 18  解决汉诺塔问题的函数
+// 汉诺塔问题:将n个盘子从start借助于temp移动到finish
+// 用法:Hanoi(64, ’A’, ‘B’, ‘C’);
+void Hanoi(int n, char start, char finish, char temp) {
+	if (n == 1)  cout << start << "->" << finish << '\t';
+	else {
+		Hanoi(n - 1, start, temp, finish);
+		cout << start << "->" << finish << '\t';
+		Hanoi(n - 1, temp, finish, start);
+	}
+}
+
+
+代码清单6 - 19 打印一个十进制整数的函数定义及使用
+//文件名:6-19.cpp
+//打印一个十进制整数
+#include <iostream>
+using namespace std;
+
+void printInt(int);  //输出一个非负整型数
+
+int main() {
+	int num;
+
+	cout << "请输入一个整型数:" << endl;
+	cin >> num;
+
+	printInt(num);
+	cout << endl;
+
+	return 0;
+}
+
+//作用:以十进制打印非负整数num
+//用法:printInt(1234)
+void printInt(int num) {
+	if (num < 10)     //递归终止条件
+		cout << static_cast<char>(num + '0');
+	else {
+		printInt(num / 10);
+		cout << static_cast<char>(num % 10 + '0');
+	}
+}
+
+
+
+
+代码清单6 - 20 打印二进制､八进制､十进制或十六进制整数的函数定义及使用
+//文件名:6-20.cpp
+//打印二进制､八进制､十进制和十六进制整数
+#include <iostream>
+using namespace std;
+
+const char DIGIT[17] = "0123456789abcdef";
+void printInt(int, int);
+int main() {
+	int num, base;
+
+	cout << "请输入一个整型数:" << endl;
+	cin >> num;
+	cout << "请输入要打印的数制:" << endl;
+	cin >> base;
+
+	printInt(num, base);
+	cout << endl;
+
+	return 0;
+}
+
+//作用:以数制base打印非负整数num
+//用法:printInt(1234, 8)
+void printInt(int num, int base) {
+	if (num < base) cout << DIGIT[num];
+	else {
+		printInt(num / base, base);
+		cout << DIGIT[num%base];
+	}
+}
+
+
+
+
+代码清单6 - 21  固定前k个字母的全排列
+// 输出字符串str的从第k个字符到最后一个字符的全排列
+// 用法:PermuteWithFixedPrefix(str, k);
+void PermuteWithFixedPrefix(char str[], int k) {
+	int i;
+
+	if (k == strlen(str))  cout << str << endl;
+	else  for (i = k; i < strlen(str); ++i) {
+		swap(str, k, i);
+		PermuteWithFixedPrefix(str, k + 1);
+		swap(str, k, i);
+	}
+}
+
+
+
+代码清单6 - 22  交换数组中的两个元素
+// 交换数组str中的第k和第i个元素
+// 用法:swap(string, 3, 7);
+void swap(char str[], int k, int i) {
+	int tmp;
+
+	tmp = str[k];
+	str[k] = str[i];
+	str[i] = tmp;
+}
+
+
+
+
+代码清单6 - 23 求解八皇后问题的程序
+//文件名:6-23.cpp
+//八皇后问题
+#include <iostream>
+using namespace std;
+
+void queen_a11(int k);
+int col[9];
+bool row[9], digLeft[17], digRight[17];
+
+int main() {
+	int j;
+
+	for (j = 0; j <= 8; j++) row[j] = true;
+	for (j = 0; j <= 16; j++) digLeft[j] = digRight[j] = true;
+	queen_a11(1);
+
+	return 0;
+}
+
+//在8×8棋盘的第k列上找合理的配置
+void queen_a11(int k) {
+	int i, j;
+	char awn;                                          //存储是否需要继续寻找的标志
+
+	for (i = 1; i < 9; i++)                           //依次在l至8行上配置k列的皇后
+		if (row[i] && digLeft[k + i - 1] && digRight[8 + k - i]) {            //可行位置 
+			col[k] = i;
+			row[i] = digLeft[k + i - 1] = digRight[8 + k - i] = false; //置对应位置有皇后
+			if (k == 8) {                                       // 找到一个可行解 
+				for (j = 1; j <= 8; j++)
+					cout << j << " " << col[j] << '\t';
+				cout << endl << "是否需要继续寻找(Q -- 退出,其他键继续:)";
+				cin >> awn;
+				if (awn == 'Q' || awn == 'q') exit(0);
+			} else  queen_a11(k + 1);                                //递归至第k+1列
+			row[i] = digLeft[k + i - 1] = digRight[8 + k - i] = true; //恢复对应位置无皇后
+		}
+}
+
+
+
+
+代码清单6 - 24  分书问题的函数
+// 在i-1个人已经分好书的前提下,为第i个人分书
+// 用法:trynext(0);
+void trynext(int i) {
+	int j, k;
+
+	for (j = 0; j < 5; ++j) {
+		if (like[i][j] && take[j] == -1) {        //如果i喜欢j,并且j未被分配
+			take[j] = i;                    //j分给i
+			if (i == 4) {               //找到一种新方案,输出此方案
+				n++;
+				cout << "\n第" << n << "种方案: " << endl;
+				cout << " 书\t人" << endl;
+				for (k = 0; k < 5; k++)  cout << k << '\t' << char(take[k] + 'A') << endl;
+			} else  trynext(i + 1);	//为下一个人分书
+			take[j] = -1;	//尝试找下一方案
+		}
+	}
+}
+
+
+
+
+代码清单6 - 25  快速排序函数
+// 快速排序程序:将数组a从low到high之间的元素按递增次序排列
+// 用法:quicksort(a, 0, n-1);
+void quicksort(int a[], int low, int high) {
+	int mid;
+
+	if (low >= high) return;	//待分段的元素只有一个或0个,排序结束
+	mid = divide(a, low, high);	//low作为基准元素,划分数组,返回中间元素的下标
+	quicksort(a, low, mid - 1);	//排序左一半
+	quicksort(a, mid + 1, high);	//排序右一半
+}
+
+
+
+
+代码清单6 - 26  分段函数的实现
+// 快速排序中的分段函数,将数组a的元素分成两段｡小于a[0]的放在数组的前一半,大于a[0]的放在数组的// 后一半,a[0]放在中间
+// 用法:divide(a, 0, n-1);
+int divide(int a[], int low, int high) {
+	int k = a[low];
+
+	do {
+		while (low < high && a[high] >= k) --high;
+		if (low < high) { a[low] = a[high]; ++low; }
+		while (low < high && a[low] <= k) ++low;
+		if (low < high) { a[high] = a[low]; --high; }
+	} while (low != high);
+	a[low] = k;
+
+	return low;
+}
+
+
+
+
+代码清单6 - 27  解决最大连续子序列问题的函数
+// 找出数组a的下标从left到right之间的和值最大的子序列
+// 用法:maxsum(a, 0, n-1);
+int maxSum(int a[], int left, int right) {
+	int maxLeft, maxRight, center;   // maxLeft和maxRight分别为左､右半部的最长子序列和
+	int leftSum = 0, rightSum = 0;
+	int maxLeftTmp = NEGMAX, maxRightTmp = NEGMAX;             // NEGMAX最大负整数
+
+	if (left == right) return a[left] > 0 ? a[left] : 0;
+	center = (left + right) / 2;
+
+	maxLeft = maxSum(a, left, center);                  // 找前半部分的最大连续子序列
+	maxRight = maxSum(a, center + 1, right);            // 找后半部分的最大连续子序列
+
+														//找从前半部分开始到后半部分结束的最大连续子序列
+	for (int i = center; i >= left; --i) {
+		leftSum += a[i];
+		if (leftSum > maxLeftTmp)  maxLeftTmp = leftSum;
+	}
+	for (i = center + 1; i <= right; ++i) {
+		rightSum += a[i];
+		if (rightSum > maxRightTmp)  maxRightTmp = rightSum;
+	}
+
+	return  max3(maxLeft, maxRight, maxLeftTmp + maxRightTmp);
+}
+
+
+
+代码清单6 - 28  解决硬币找零问题的函数
+// 找出找零maxChange分钱的最少硬币数｡Coins存放不同的硬币币值,differentCoins是不同币值的硬币// 数,coinUsed[k]是找出k分零钱的最少硬币数
+// 用法:makechange(coins,  differentCoins, maxChange, coinUsed);
+void makechange(int coins[], int differentCoins, int maxChange, int coinUsed[]) {
+	coinUsed[0] = 0;
+	for (int cents = 1; cents <= maxChange; cents++) {       //找出cents分的找零方案
+		int minCoins = cents;                             //都用1分找零,硬币数最大
+		for (int j = 1; j < differentCoins; j++) {        //尝试所有硬币
+			if (coins[j] > cents) continue;                //coin[j]的值大于要找的零钱
+			if (coinUsed[cents - coins[j]] + 1 < minCoins)   //分解成coins[i]和cents-coins[j]
+				minCoins = coinUsed[cents - coins[j]] + 1;             //用此硬币
+		}
+		coinUsed[cents] = minCoins;
+	}
+}
+
+
+
+代码清单7 - 1 统计某次考试的平均成绩和均方差
+//文件名:7-1.cpp
+//统计某次考试的平均成绩和均方差
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+	int *score, num, i;                // score为存放成绩的数组名
+	double average = 0, variance = 0;
+
+	// 输入阶段
+	cout << "请输入参加考试的人数:";
+	cin >> num;
+	score = new int[num];
+
+	cout << "请输入成绩:\n";
+	for (i = 0; i < num; ++i)
+		cin >> score[i];
+
+	//计算平均成绩
+	for (i = 0; i < num; ++i)
+		average += score[num];
+	average = average / num;
+
+	//计算均方差
+	for (i = 0; i < num; ++i)
+		variance += (average - score[i]) * (average - score[i]);
+	variance = sqrt(variance) / num;
+
+	cout << "平均分是:" << average << "\n均方差是:" << variance << endl;
+
+	return 0;
+}
+
+
+
+代码清单7 - 2 解一元二次方程的函数及其应用
+//文件名:7-2.cpp
+//解一元二次方程的函数及其应用
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int SolveQuadratic(double a, double b, double c, double *px1, double *px2);
+
+int main() {
+	double a, b, c, x1, x2;
+	int result;
+
+	cout << "请输入a,b,c: ";
+	cin >> a >> b >> c;
+
+	result = SolveQuadratic(a, b, c, &x1, &x2);
+	switch (result) {
+	case 0: cout << "方程有两个不同的根:x1 = " << x1 << "  x2 = " << x2; break;
+	case 1: cout << "方程有两个等根:" << x1; break;
+	case 2: cout << "方程无根"; break;
+	case 3: cout << "不是一元二次方程";
+	}
+
+	return 0;
+}
+
+//这是一个解一元二次方程的函数,a,b,c是方程的系数,px1和px2是存放方程解的地址
+//函数的返回值表示根的情况:	0--有两个不等根
+//         		1--有两个等根,在px1中
+//            	2--根不存在
+//        		3--降级为一元一次方程
+int SolveQuadratic(double a, double b, double c, double *px1, double *px2) {
+	double disc, sqrtDisc;
+
+	if (a == 0) return 3; //不是一元二次方程 
+
+	disc = b * b - 4 * a * c;
+
+	if (disc < 0) return 2; //无根
+
+	if (disc == 0) { *px1 = -b / (2 * a); return 1; }  //等根
+
+													   //两个不等根
+	sqrtDisc = sqrt(disc);
+	*px1 = (-b + sqrtDisc) / (2 * a);
+	*px2 = (-b - sqrtDisc) / (2 * a);
+
+	return 0;
+}
+
+
+
+代码清单7 - 3 数组作为函数的参数的示例程序
+//文件名:7-3.cpp
+//数组作为函数的参数的示例
+#include <iostream>
+using namespace std;
+
+void f(int arr[]);
+
+int main() {
+	int array[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+
+	cout << sizeof(array) << endl;
+	f(array);
+
+	return 0;
+}
+
+void f(int arr[]) {
+	cout << sizeof(arr) << endl;
+}
+
+
+代码清单7 - 4 找整型数组中的最大最小值的程序
+//文件名:7-4.cpp
+//找整型数组中的最大最小值的程序
+void minmax(int a[], int n, int *min_ptr, int *max_ptr) {
+	int   min1, max1, min2, max2;
+
+	switch (n) {
+	case 1: *min_ptr = *max_ptr = a[0]; return;
+	case 2: if (a[0] < a[1]) { *min_ptr = a[0];  *max_ptr = a[1]; } else { *min_ptr = a[1];  *max_ptr = a[0]; }
+			return;
+	default: minmax(a, n / 2, &min1, &max1);     // 找前一半的最大最小值
+		minmax(a + n / 2, n - n / 2, &min2, &max2); // 找后一半的最大最小值
+		if (min1 < min2)  *min_ptr = min1;  else  *min_ptr = min2;
+		if (max1 < max2)  *max_ptr = max2;  else  *max_ptr = max1;
+		return;
+	}
+}
+
+
+
+代码清单7 - 5 字符串作为函数的参数的示例程序
+//文件名:7-5.cpp
+//字符串作为函数的参数的示例
+int word_cnt(const char *s) {
+	int cnt = 0;
+
+	while (*s != '\0') {
+		while (*s == ' ')   ++s; //跳过空白字符
+		if (*s != '\0') {
+			++cnt;		//找到一个单词
+			while (*s != ' ' && *s != '\0') ++s;     //跳过单词	  
+		}
+	}
+
+	return cnt;
+}
+
+
+
+代码清单7 - 6 字符串作为函数的参数的示例程序
+//文件名:7-6.cpp
+//从一个字符串中取出一个子串
+char *subString(char *s, int start, int end) {
+	int len = strlen(s);
+
+	if (start < 0 || start >= len || end < 0 || end >= len || start > end) {
+		cout << "起始或终止位置错" << endl;
+		return NULL;
+	}
+
+	char *sub = new char[end - start + 2];          // 为子串准备空间
+	strncpy(sub, s + start, end - start + 1);
+	sub[end - start + 1] = '\0';
+
+	return sub;
+}
+
+
+代码清单7 - 7 convertToInt函数的优化一
+int convertToInt(char s[], int &start, int base) {
+	int data = 0;
+	switch (base) {
+	case 10: while (s[start] != ' ' && s[start] != '\0')
+		data = data * 10 + s[start++] - '0';
+		break;
+	case 8: while (s[start] != ' ' && s[start] != '\0')
+		data = data * 8 + s[start++] - '0';
+		break;
+	case 16: while (s[start] != ' ' && s[start] != '\0') {
+		data = data * 16;
+		if (s[start] >= 'A' && s[start] <= 'F') data += s[start++] - 'A' + 10;
+		else data += s[start++] - '0';
+	}
+	}
+	return data;
+}
+
+
+
+代码清单7 - 8 convertToInt函数的优化二
+int convertToInt(char *&s, int base) {
+	int data = 0;
+	switch (base) {
+	case 10: while (*s != ' ' && *s != '\0')
+		data = data * 10 + *(s++) - '0';
+		break;
+	case 8: while (*s != ' ' && *s != '\0')
+		data = data * 8 + *(s++) - '0';
+		break;
+	case 16: while (*s != ' ' && *s != '\0') {
+		data = data * 16;
+		if (*s >= 'A' && *s <= 'F') data += *(s++) - 'A' + 10;
+		else data += *(s++) - '0';
+	}
+	}
+	return data;
+}
+
+
+代码清单7 - 9 返回引用值的函数示例
+//文件名:7-9.cpp
+//返回引用值的函数示例
+#include <iostream>
+using namespace std;
+
+int a[] = { 1, 3, 5, 7, 9 };
+
+int &index(int); //声明返回引用的函数
+
+void main() {
+	index(2) = 25; //将a[2]重新赋值为25
+	cout << index(2);
+}
+
+int &index(int j) {
+	return a[j];
+}
+
+
+
+代码清单7 - 10 二分查找的递归实现
+//该函数用二分查找在cityTable中查找cityName是否出现
+//lh和rh表示查找范围
+int binarySearch(char *cityTable[], int lh, int rh, char *cityName) {
+	int mid, result;        //mid:中间元素的下标值,result:中间元素和cityName的比较结果
+
+	if (lh <= rh) {
+		mid = (lh + rh) / 2;
+		result = strcmp(cityTable[mid], cityName);
+		if (result == 0) return mid;                                      //找到
+		else if (result > 0) return binarySearch(cityTable, lh, mid - 1, cityName);
+		//在左一半找
+		else return binarySearch(cityTable, mid + 1, rh, cityName); //在右一半找
+	}
+
+	return -1; //没有找到
+}
+
+
+代码清单7 - 11 带参数的main函数示例
+//文件名:7-11.cpp
+//带参数的main函数示例
+#include <iostream>
+using namespace std;
+
+int main(int argc, char *argv[]) {
+	int i;
+
+	cout << "argc=" << argc << endl;
+	for (i = 0; i < argc; ++i)
+		cout << "argv[" << i << "]=" << argv[i] << endl;
+
+	return 0;
+}
+
+
+
+
+
+代码清单7 - 12 求n个正整数的平均值的程序
+//文件名:7-12.cpp
+//求几个正整数的平均值
+#include <iostream>
+using namespace std;
+
+int ConvertStringToInt(char *);
+
+int main(int argc, char *argv[]) {
+	int sum = 0;
+
+	for (int i = 1; i < argc; ++i) sum += ConvertStringToInt(argv[i]);
+	cout << sum / (argc - 1) << endl;
+
+	return 0;
+}
+
+//将字符串转换成整型数
+int ConvertStringToInt(char *s) {
+	int num = 0;
+
+	while (*s) { num = num * 10 + *s - '0'; ++s; }
+
+	return num;
+}
+
+
+
+代码清单7 - 13 用指向指针的指针访问指针数组
+//文件名:7-13.cpp
+//用指向指针的指针访问指针数组
+#include <iostream>
+using namespace std;
+
+int main() {
+	char  **p, *city[] = { "aaa", "bbb", "ccc", "ddd",  "eee" };
+
+	for (p = city; p < city + 5; ++p)     cout << *p << endl;
+
+	return 0;
+}
+
+
+代码清单7 - 14 动态的二维数组
+//文件名:7-14.cpp
+//动态的二维数组
+#include <iostream>
+using namespace std;
+
+int main() {
+	int **a, i, j, k = 0;               //a是动态数组的名字
+
+	a = new int *[3];                   //申请指向每一行首地址的指针
+	for (i = 0; i < 3; ++i)             //为每一行申请空间
+		a[i] = new int[4];
+
+	for (i = 0; i < 3; ++i)             //为动态数组元素赋值
+		for (j = 0; j < 4; ++j)
+			a[i][j] = k++;
+
+	for (i = 0; i < 3; ++i) {       // 输出动态数组
+		cout << endl;
+		for (j = 0; j < 4; ++j)
+			cout << a[i][j] << '\t';
+	}
+
+	for (i = 0; i < 3; ++i)         //  释放每一行
+		delete[] a[i];
+	delete[] a;                    //  释放保存每一行首指针的数组
+
+	return 0;
+}
+
+代码清单7 - 15 通用的冒泡排序函数的实现
+//文件名:7-15.cpp
+//通用的冒泡排序函数
+template <class T>
+void sort(T a[], int size, bool(*f)(T, T)) {
+	bool flag;
+	int i, j;
+
+	for (i = 1; i < size; ++i) {
+		flag = false;
+		for (j = 0; j < size - i; ++j) {
+			if (f(a[j + 1], a[j])) {
+				int tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;
+				flag = true;
+			}
+		}
+		if (!flag) break;
+	}
+}
+
+
+
+代码清单7 - 16 通用的冒泡排序函数的应用
+//文件名:7-16.cpp
+//通用的冒泡排序函数的应用
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+bool increaseInt(int x, int y) { return x < y; }
+bool decreaseInt(int x, int y) { return y < x; }
+bool increaseString(char *x, char *y) { return strcmp(x, y) < 0; }
+bool decreaseString(char *x, char *y) { return strcmp(x, y) > 0; }
+
+int main() {
+	int a[] = { 3,1,4,2,5,8,6,7,0,9 }, i;
+	char *b[] = { "aaa","bbb","fff","ttt","hhh","ddd","ggg","www","rrr","vvv" };
+
+	sort(a, 10, increaseInt);
+	for (i = 0; i < 10; ++i) cout << a[i] << "\t";
+	cout << endl;
+
+	sort(a, 10, decreaseInt);
+	for (i = 0; i < 10; ++i) cout << a[i] << "\t";
+	cout << endl;
+
+	sort(b, 10, increaseString);
+	for (i = 0; i < 10; ++i) cout << b[i] << "\t";
+	cout << endl;
+
+	sort(b, 10, decreaseString);
+	for (i = 0; i < 10; ++i) cout << b[i] << "\t";
+	cout << endl;
+
+	return 0;
+}
+
+
+
+代码清单7 - 17 实现菜单功能的程序
+//文件名:7-17.cpp
+//菜单功能的实现
+int main() {
+	int select;
+
+	while (1) {
+		cout << "1--add \n";
+		cout << "2--erase\n";
+		cout << "3--modify\n";
+		cout << "4--print salary\n";
+		cout << "5--print report\n";
+		cout << "0--quit\n";
+
+		cin >> select;
+
+		switch (select) {
+		case 0: return 0;
+		case 1: add(); break;
+		case 2: erase(); break;
+		case 3: modify(); break;
+		case 4: printSalary(); break;
+		case 5: printReport(); break;
+		default: cout << "input error\n";
+		}
+	}
+}
+
+
+代码清单7 - 18 用函数指针实现菜单选择的程序
+//文件名:7-18.cpp
+//用函数指针实现菜单选择
+int main() {
+	int select;
+	void(*func[6])() = { NULL, add, erase, modify, printSalary, printReport };
+
+	while (1) {
+		cout << "1--add \n";
+		cout << "2--delete\n";
+		cout << "3--modify\n";
+		cout << "4--print salary\n";
+		cout << "5--print report\n";
+		cout << "0--quit\n";
+
+		cin >> select;
+
+		if (select == 0) return 0;
+		if (select > 5) cout << "input error\n"; else func[select]();
+	}
+}
+代码清单8 - 1 点操作函数的应用
+//文件名:8-1.cpp
+//对平面上点的操作的函数及应用
+struct pointT
+{
+	double x, y;
+};
+void setPoint(double x, double y, pointT &p);
+double getX(const pointT &p);
+double getY(const pointT &p);
+void showPoint(const pointT &p);
+double distancePoint(const pointT &p1, const pointT &p2);
+
+int main() {
+	pointT p1, p2;
+
+	setPoint(1, 1, p1);
+	setPoint(2, 2, p2);
+
+	cout << getX(p1) << "  " << getY(p2) << endl;
+	showPoint(p1);
+	cout << " -> ";
+	showPoint(p2);
+	cout << " = " << distancePoint(p1, p2) << endl;
+
+	return 0;
+}
+
+void setPoint(double x, double y, pointT &p) {
+	p.x = x;
+	p.y = y;
+}
+
+double getX(const pointT &p) {
+	return (p.x);
+}
+
+double getY(const pointT &p) {
+	return (p.y);
+}
+
+void showPoint(const pointT &p) {
+	cout << "(" << p.x << " , " << p.y << ")";
+}
+
+double distancePoint(const pointT &p1, const pointT &p2) {
+	return sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
+}
+
+
+
+
+代码清单8 - 2 单链表的建立与访问
+//文件名:8-2.cpp
+//单链表的建立与访问
+#include <iostream>
+using namespace std;
+
+struct  linkRec
+{
+	int  data;
+	linkRec *next;
+};
+
+int main() {
+	int x;                     //存放输入的值
+	linkRec *head, *p, *rear;	//head为表的头指针,rear指向创建链表时的表尾结点,
+								//p是创建和读链表时指向被操作结点的指针
+
+	head = rear = new linkRec;	//创建空链表,头结点也是最后一个结点
+
+								//创建链表的其他结点
+	while (true) {
+		cin >> x;
+		if (x == 0) break;
+		p = new linkRec;	//申请一个结点
+		p->data = x;	//将x的值存入新结点
+		rear->next = p;	//将p链到表尾
+		rear = p;	//p作为新的表尾
+	}
+
+	rear->next = NULL;	//设置rear为表尾,其后没有结点了
+
+						//读链表
+	cout << "链表的内容为:\n";
+	p = head->next;            //p指向第一个结点
+	while (p != NULL) {
+		cout << p->data << '\t';
+		p = p->next;	//使p指向下一个结点
+	}
+	cout << endl;
+
+	return 0;
+}
+
+
+代码清单8 - 3 求解约瑟夫环问题的程序
+//文件名:8-3.cpp
+//求解约瑟夫环问题
+#include <iostream>
+using namespace std;
+
+struct  node
+{
+	int data;
+	node  *next;
+};
+
+int main() {
+	node *head, *p, *q;                                        //head为链表头
+	int n, i;
+
+	//输入n
+	cout << "\ninput n:";     cin >> n;
+
+	//建立链表
+	head = p = new node;                 //创建第一个结点,head指向表头,p指向表尾
+	p->data = 0;
+	for (i = 1; i < n; ++i) {                // 构建单循环链表
+		q = new node;                                    //q为当前正在创建的结点
+		q->data = i;
+		p->next = q;  p = q;                                     //将q链入表尾
+	}
+	p->next = head;                                                // 头尾相连 
+
+																   // 删除过程 
+	q = head;                                                     //head报数为1
+	while (q->next != q) {                                   //表中元素多于一个
+		p = q->next;  q = p->next;                        //p报数为2, q报数为3
+														  //删除q
+		p->next = q->next;                                     //绕过结点q
+		cout << q->data << '\t';                          //显示被删者的编号
+		delete q;	                                         //回收被删者的空间
+		q = p->next;                                        //让q指向报1的结点
+	}
+
+	// 打印结果 
+	cout << "\n最后剩下: " << q->data << endl;
+
+	return 0;
+}
+
+
+
+代码清单9 - 1 猜硬币正反面游戏的主程序
+//文件名:9-1.cpp
+//猜硬币正反面游戏的主程序
+int main() {
+	prn_instruction();
+	play();
+
+	return 0;
+}
+
+
+
+代码清单9 - 2 prn_instruction函数的实现
+// 输出帮助信息
+// 用法:prn_instruction();
+void prn_instruction() {
+	cout << "这是一个猜硬币正反面的游戏｡\n";
+	cout << "我会扔一个硬币,你来猜｡\n";
+	cout << "如果猜对了,你赢,否则我赢｡\n";
+}
+
+
+代码清单9 - 3 play函数的实现
+// 玩游戏的过程
+// 用法:play();
+void play() {
+	int coin;
+	char flag = 'Y';
+
+	srand(time(NULL));                                        //设置随机数种子
+	while (flag == 'Y' || flag == 'y') {
+		coin = rand() * 2 / (RAND_MAX + 1);               //生成扔硬币的结果
+		if (get_call_from_user() == coin) cout << "你赢了";
+		else  cout << "我赢了";
+		cout << "\n继续玩吗(Y或y)?";
+		cin >> flag;
+	}
+}
+
+
+
+
+代码清单9 - 4 get_call_from_user函数的实现
+// 从键盘获取用户选择的正反面
+// 用法:userChoice = get_call_from_user();
+int get_call_from_user() {
+	int  guess;                      // 0 = head, 1 = tail
+
+	do {
+		cout << "\n输入你的选择(0表示正面,1表示反面):";
+		cin >> guess;
+	} while (guess != 0 && guess != 1);
+
+	return guess;
+}
+
+
+
+代码清单9 - 5 石头､剪子､布游戏程序的头文件
+//文件:p_r_s.h
+//本文件定义了两个枚举类型,声明了本程序包括的所有函数原型
+#ifndef  P_R_S
+#define P_R_S
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+enum p_r_s { paper, rock, scissor, game, help, quit };
+enum outcome { win, lose, tie, error };
+
+outcome compare(p_r_s player_choice, p_r_s machine_choice);
+void prn_final_status();
+void prn_game_status();
+void prn_help();
+void report(outcome result);
+p_r_s selection_by_machine();
+p_r_s selection_by_player();
+#endif
+
+
+代码清单9 - 6 石头､剪子､布游戏的主模块的实现
+//文件:9-6.cpp
+//石头､剪子､布游戏的主模块
+#include "p_r_s.h"
+
+int main(void) {
+	outcome  result;
+	p_r_s player_choice, machine_choice;
+
+	srand(time(NULL));                   // 设置随机数的种子
+
+	while ((player_choice = selection_by_player()) != quit)
+		switch (player_choice) {
+		case paper:    case rock:      case scissor:
+			machine_choice = selection_by_machine();
+			result = compare(player_choice, machine_choice);
+			report(result);  break;
+		case game: prn_game_status();  break;
+		case help: prn_help();   break;
+		}
+	prn_game_status();
+
+	return 0;
+}
+
+
+
+
+代码清单9 - 7 选择模块的实现
+//文件:select.cpp
+//包括机器选择selection_by_machine和玩家选择selection_by_player函数的实现
+#include "p_r_s.h"
+
+p_r_s selection_by_machine() {
+	int select = (rand() * 3 / (RAND_MAX + 1)); //产生0到2之间的随机数
+
+	cout << " I am ";
+	switch (select) {
+	case 0: cout << "paper. "; break;
+	case 1: cout << "rock. "; break;
+	case 2: cout << "scissor. "; break;
+	}
+
+	return ((p_r_s)select); //强制类型转换,将0到2分别转换成paper, rock, scissor
+}
+
+p_r_s selection_by_player() {
+	char c;
+	p_r_s player_choice;
+
+	prn_help(); //显示输入提示
+	cout << "please select: "; cin >> c;
+	switch (c) {
+	case 'p':  player_choice = paper;   cout << "you are paper. "; break;
+	case 'r':  player_choice = rock;   cout << "you are rock. "; break;
+	case 's':  player_choice = scissor;  cout << "you are scissor. "; break;
+	case 'g':  player_choice = game;   break;
+	case 'q':  player_choice = quit;  break;
+	default:  player_choice = help;  break;
+	}
+
+	return player_choice;
+}
+
+
+代码清单9 - 8 比较模块的实现
+//文件:compare.cpp 
+//包括compare函数的实现
+#include "p_r_s.h"
+
+outcome compare(p_r_s player_choice, p_r_s machine_choice) {
+	outcome  result;
+
+	if (player_choice == machine_choice)   return tie;
+	switch (player_choice) {
+	case paper: result = (machine_choice == rock) ? win : lose;  break;
+	case rock: result = (machine_choice == scissor) ? win : lose;  break;
+	case scissor: result = (machine_choice == paper) ? win : lose;  break;
+	}
+
+	return result;
+}
+
+
+
+
+
+代码清单9 - 9 输出模块的实现
+//文件:print.cpp 
+//包括所有与输出有关的模块,有prn_game_status､prn_help和report函数
+#include "p_r_s.h"
+
+static int win_cnt = 0, lose_cnt = 0, tie_cnt = 0;      //模块的内部状态
+
+void prn_game_status() {
+	cout << endl;
+	cout << "GAME STATUS:" << endl;
+	cout << "win:  " << win_cnt << endl;
+	cout << "Lose: " << lose_cnt << endl;
+	cout << "tie:    " << tie_cnt << endl;
+	cout << "Total:" << win_cnt + lose_cnt + tie_cnt << endl;
+}
+
+void prn_help() {
+	cout << endl
+		<< "The following characters can be used:\n"
+		<< "   p  for paper\n"
+		<< "   r   for rock\n"
+		<< "   s   for scissors\n"
+		<< "   g   print the game status\n"
+		<< "   h   help, print this list\n"
+		<< "   q   quit the game\n";
+}
+
+void report(outcome result) {
+	switch (result) {
+	case win:   ++win_cnt; cout << "You win. \n";   break;
+	case lose:  ++lose_cnt; cout << "You lose.\n";   break;
+	case tie:    ++tie_cnt;    cout << "A  tie.\n";   break;
+	}
+}
+
+
+
+
+代码清单9 - 10 随机数函数库的接口
+//文件:Random.h
+//随机函数库的头文件
+#ifndef _random_h
+#define _random_h
+
+//函数:RandomInit
+//用法:RandomInit()
+//作用:此函数初始化随机数发生器,需要用随机数的程序在第一次生成随机数前必须先调用一次本函数
+void RandomInit();
+
+//函数:RandomInteger
+//用法:n = RandomInteger(low, high)
+//作用:此函数返回一个low到high之间的随机数,包括low和high
+int RandomInteger(int low, int high);
+
+//函数:RandomDouble
+//用法:n = RandomDouble(low, high)
+//作用:此函数返回一个大于等于low,且小于high的随机实数
+double RandomDouble(double low, double high);
+
+#endif
+
+
+
+代码清单9 - 11 随机数函数库的实现
+//文件:Random.cpp
+//该文件实现了Random库
+#include <cstdlib>
+#include <ctime>
+#include "Random.h"
+
+//函数:RandomInit
+//该函数取当前系统时间作为随机数发生器的种子
+void RandomInit() {
+	srand(time(NULL));
+}
+
+//函数:RandomInteger
+//该函数将0到RAND_MAX的区间的划分成high-low+1个子区间｡
+//当产生的随机数落在第一个子区间时,则映射成low｡当落在最后一个子区间时,
+//映射成high｡当落在第i个子区间时(i从0到high-low),则映射到low + i
+int RandomInteger(int low, int high) {
+	return (low + (high - low + 1) * rand() / (RAND_MAX + 1));
+}
+
+//函数:RandomDouble
+//该函数将产生的随机数映射为[0,1]之间的实数,
+//然后转换到区间[low, high]
+double RandomDouble(double low, double high) {
+	double d = (double)rand() / (RAND_MAX + 1));
+	return (low + (high - low + 1) * d;
+}
+
+
+
+代码清单9 - 12 主模块的实现
+//文件名:9-12.cpp
+//主模块的实现
+#include "Random.h"                                               //包含随机数库
+#include <iostream>
+using namespace std;
+
+const int RACE_END = 70;                                       //设置跑道的长度
+
+int move_tortoise();
+int move_hare();
+void print_position(int, int, int);
+
+int main() {
+	int hare = 0, tortoise = 0, timer = 0; //hare和tortoise分别是兔子和乌龟的位置,
+										   //timer是计时器,统计比赛用时
+	RandomInit();                                                //随机数初始化
+	cout << "timer  tortoise  hare\n";                             //输出表头
+
+	while (hare < RACE_END && tortoise < RACE_END) {    //当兔子和乌龟都没到终点时
+		tortoise += move_tortoise();                                //乌龟移动
+		hare += move_hare();                                        //兔子移动
+		print_position(timer, tortoise, hare);
+		++timer;
+	}
+
+	if (hare > tortoise) cout << "\n hare wins!\n";
+	else cout << "\n tortoise wins!\n";
+
+	return 0;
+}
+
+
+代码清单9 - 13 移动模块的实现
+//文件名:move.cpp
+//移动模块的实现
+#include "Random.h"                             //本模块用到了随机函数库
+
+int move_tortoise() {
+	int probability = RandomInteger(0, 9);	//产生0~9的随机数
+
+	if (probability < 5) return 3;	//快走
+	else if (probability < 7) return -6;	//后滑
+	else return 1;	//慢走
+}
+
+int move_hare() {
+	int probability = RandomInteger(0, 9);
+
+	if (probability < 2) return 0;	//睡觉
+	else if (probability < 4) return -9;	//大后滑
+	else if (probability < 5) return 14;	//快走
+	else if (probability < 8) return 3;	//小步跳
+	else return -2;	//慢后滑
+}
+
+
+代码清单9 - 14 输出模块的实现
+// 文件名:print.cpp
+// 输出乌龟和兔子在timer时刻的位置
+#include <iostream>
+using namespace std;
+
+void print_position(int timer, int t, int h) {
+	if (timer % 6 == 0) cout << endl; //每隔6秒空一行
+	cout << timer << '\t' << t << '\t' << h << '\n';
+}
+
+
+
+
+代码清单10 - 1 array库的接口
+//文件名:array.h
+//array库的接口
+#ifndef _array_h
+#define _array_h
+
+//可指定下标范围的数组的存储
+struct DoubleArray
+{
+	int low;
+	int high;
+	double *storage;
+};
+
+//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+bool initialize(DoubleArray &arr, int low, int high);
+
+//设置数组元素的值
+//返回值为true表示操作正常,返回值为false表示下标越界
+bool insert(const DoubleArray &arr, int index, double value);
+
+//取数组元素的值
+//返回值为true表示操作正常,返回值为false表示下标越界
+bool fatch(const DoubleArray &arr, int index, double &value);
+
+//回收数组空间
+void cleanup(const DoubleArray &arr);
+
+#endif
+
+
+
+代码清单10 - 2 array库的实现
+//文件名:array.cpp
+//array库的实现
+#include "array.h"
+#include <iostream>
+using namespace std;
+
+//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+bool initialize(DoubleArray &arr, int low, int high) {
+	arr.low = low;
+	arr.high = high;
+	arr.storage = new double[high - low + 1];
+	if (arr.storage == NULL) return false; else return true;
+}
+
+//设置数组元素的值
+//返回值为true表示操作正常,返回值为false表示下标越界
+bool insert(const DoubleArray &arr, int index, double value) {
+	if (index < arr.low || index > arr.high) return false;
+	arr.storage[index - arr.low] = value;
+
+	return true;
+}
+
+//取数组元素的值
+//返回值为true表示操作正常,返回值为false表示下标越界
+bool fatch(const DoubleArray &arr, int index, double &value) {
+	if (index < arr.low || index > arr.high) return false;
+	value = arr.storage[index - arr.low];
+
+	return true;
+}
+
+//回收数组空间
+void cleanup(const DoubleArray &arr) {
+	if (arr.storage)  delete[] arr.storage;
+}
+
+
+
+代码清单10 - 3 array库的应用示例
+//文件名:10-3.cpp
+//array库的应用示例
+#include <iostream>
+using namespace std;
+#include "array.h" 
+
+int main() {
+	DoubleArray array; 					//DoubleArray是array库中定义的结构体类型
+	double value;
+	int low, high, i;
+
+	//输入数组的下标范围
+	cout << "请输入数组的下标范围:";
+	cin >> low >> high;
+
+	//初始化数组array,下标范围为20到30
+	if (!initialize(array, low, high)) { cout << "空间分配失败"; return 1; }
+
+	for (i = low; i <= high; ++i) { 			//数组元素的输入
+		cout << "请输入第" << i << "个元素:";
+		cin >> value;
+		insert(array, i, value); 		         //将value存入数组array的第i个元素
+	}
+
+	while (true) { 					         //读取第i个元素
+		cout << "请输入要读取的元素序号(0表示结束):";
+		cin >> i;
+		if (i == 0) break;
+		if (fatch(array, i, value)) cout << value << endl;
+		else cout << "下标越界\n";
+	}
+
+	cleanup(array);					//回收存储数组元素的空间
+
+	return 0;
+}
+
+
+
+代码清单10 - 4 改进后的array库的接口
+//文件名:array.h
+//改进后的array接口
+#ifndef _array_h
+#define _array_h
+
+struct DoubleArray
+{
+	int low;
+	int high;
+	double *storage;
+
+	//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+	bool initialize(int lh, int rh);
+
+	//设置数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool insert(int index, double value);
+
+	//取数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool fatch(int index, double &value);
+
+	//回收数组空间
+	void cleanup();
+};
+
+#endif
+
+
+
+
+代码清单10 - 5 改进后的array库的实现
+//文件名:array.cpp
+//改进后的array库的实现
+#include "array.h"
+#include <iostream>
+using namespace std;
+
+//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+bool DoubleArray::initialize(int lh, int rh) {
+	low = lh;
+	high = rh;
+	storage = new double[high - low + 1];
+	if (storage == NULL) return false; else return true;
+}
+
+//设置数组元素的值
+//返回值为true表示操作正常,返回值为false表示下标越界
+bool DoubleArray::insert(int index, double value) {
+	if (index < low || index > high) return false;
+	storage[index - low] = value;
+
+	return true;
+}
+
+//取数组元素的值
+//返回值为true表示操作正常,返回值为false表示下标越界
+bool DoubleArray::fatch(int index, double &value) {
+	if (index < low || index > high) return false;
+	value = storage[index - low];
+
+	return true;
+}
+
+//回收数组空间
+void DoubleArray::cleanup() {
+	if (storage) delete[] storage;
+}
+
+
+
+
+代码清单10 - 6 改进后的array库的应用示例
+//文件名:10-6.cpp
+//改进后的array库的应用示例
+#include <iostream>
+using namespace std;
+#include "array.h"
+
+int main() {
+	DoubleArray array;
+	double value;
+	int low, high, i;
+
+	//输入数组的下标范围
+	cout << "请输入数组的下标范围:";
+	cin >> low >> high;
+
+	if (!array.initialize(low, high)) {         // 为array申请存储数组元素的空间
+		cout << "空间分配失败"; return 1;
+	}
+
+	//数组array的初始化
+	for (i = low; i <= high; ++i) {             //数组元素的输入
+		cout << "请输入第" << i << "个元素:";
+		cin >> value;
+		array.insert(i, value);
+	}
+
+	while (true) {                              //数组元素的访问
+		cout << "请输入要访问的元素序号(0表示结束):";
+		cin >> i;
+		if (i == 0) break;
+		if (array.fatch(i, value)) cout << value << endl;
+		else cout << "下标越界\n";
+	}
+
+	array.cleanup();                //归还存储数组元素的空间
+
+	return 0;
+}
+
+
+
+代码清单10 - 7 用class定义的DoubleArray类型
+// 文件名:DoubleArray.h
+// DoubleArray类的定义
+class DoubleArray
+{
+private:
+	int low;
+	int high;
+	double *storage;
+
+public:
+	//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+	bool initialize(int lh, int rh);
+
+	//设置数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool insert(int index, double value);
+
+	//取数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool fatch(int index, double &value);
+
+	//回收数组空间
+	void cleanup();
+};
+
+
+
+代码清单10 - 8 将成员函数定义为内联函数
+//文件名:10-8.h
+//将成员函数定义为内联函数
+#ifndef¬_DoubleArray
+#define_DoubleArray
+
+class DoubleArray
+{
+private:
+	int low;
+	int high;
+	double *storage;
+
+public:
+	//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+	bool initialize(int lh, int rh) {
+		low = lh;
+		high = rh;
+		storage = new double[high - low + 1];
+		if (storage == NULL) return false; else return true;
+	}
+	//设置数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool insert(int index, double value) {
+		if (index < low || index > high) return false;
+		storage[index - low] = value;
+
+		return true;
+	}
+
+	//取数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool fatch(int index, double &value) {
+		if (index < low || index > high) return false;
+		value = storage[index - low];
+
+		return true;
+	}
+
+	//回收数组空间
+	void cleanup() {
+		if (storage) delete[] storage;
+	}
+};
+#endif
+
+
+
+代码清单10 - 9 有理数类
+//文件名:Rational.h
+//有理数类的定义
+#ifndef rational_h
+#define rational_h
+
+#include <iostream>
+using namespace std;
+
+class Rational
+{
+private:
+	int num; 				//分子 
+	int den; 				//分母
+
+	void ReductFraction(); //将有理数化简成最简形式
+
+public:
+	void create(int n, int d) { num = n; den = d; ReductFraction() }
+	void add(const Rational &r1, const Rational &r2);	//r1+r2,结果存于当前对象
+	void multi(const Rational &r1, const Rational &r2);	//r1*r2,结果存于当前对象
+	void display() { cout << num << '/' << den; }
+};
+
+#endif
+
+
+
+代码清单10 - 10 函数的实现
+//文件名:Rational.cpp
+//有理数类成员函数的实现
+#include "Rational.h"
+
+//add函数将r1和r2相加,结果存于调用该函数的变量中
+void Rational::add(const Rational &r1, const Rational &r2) {
+	num = r1.num * r2.den + r2.num * r1.den;
+	den = r1.den * r2.den;
+	ReductFraction();
+}
+
+//multi函数将r1和r2相乘,结果存于调用该函数的变量中
+void Rational::multi(const Rational &r1, const Rational &r2) {
+	num = r1.num * r2.num;
+	den = r1.den * r2.den;
+	ReductFraction();
+}
+
+//ReductFraction实现有理数的化简
+//方法:找出num和den的最大公因子,让它们分别除以最大公因子
+void Rational::ReductFraction() {
+	int tmp = (num > den) ? den : num;
+
+	for (; tmp > 1; --tmp)
+		if (num % tmp == 0 && den % tmp == 0) { num /= tmp; den /= tmp; break; }
+}
+
+
+
+
+代码清单10 - 11 有理数类应用示例
+//文件名:10-11.cpp
+//计算两个有理数的和与积
+#include <iostream>
+using namespace std;
+#include "Rational.h"                           //使用有理数类
+
+int main() {
+	int n, d;
+	Rational r1, r2, r3;                        //定义三个有理数类的对象
+
+	cout << "请输入第一个有理数(分子和分母):";
+	cin >> n >> d;
+	r1.create(n, d);
+
+	cout << "请输入第二个有理数(分子和分母):";
+	cin >> n >> d;
+	r2.create(n, d);
+
+	r3.add(r1, r2);                            //执行r3=r1+r2
+	r1.display(); cout << " + "; r2.display();
+	cout << " = "; r3.display(); cout << endl;
+
+	r3.multi(r1, r2);                          //执行r3=r1*r2
+	r1.display(); cout << " * "; r2.display();
+	cout << " = "; r3.display(); cout << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单10 - 12 采用构造函数和析构函数的DoubleArray类的定义
+class DoubleArray
+{
+	int low;
+	int high;
+	double *storage;
+
+public:
+	//构造函数根据low和high为数组分配空间
+	DoubleArray(int lh, int rh) {
+		low = lh;
+		high = rh;
+		storage = new double[high - low + 1];
+	}
+
+	//设置数组元素的值
+	//返回值为true表示操作正常,返回值为false表示下标越界
+	bool insert(int index, double value);
+
+	//取数组元素的值
+	//返回值为true表示操作正常,为false表示下标越界
+	bool fatch(int index, double &value);
+
+	//析构函数
+	~DoubleArray() { if (storage) delete[] storage; }
+};
+
+
+
+代码清单10 - 13 采用构造函数和析构函数的DoubleArray类的使用
+//文件名:10-13.cpp
+//DoubleArray类的使用
+
+#include <iostream>
+using namespace std;
+#include "DoubleArray.h"
+
+int main() {
+	DoubleArray array(20, 30);
+	int i;
+	double value;
+
+	for (i = 20; i <= 30; ++i) {
+		cout << "请输入第" << i << "个元素:";  cin >> value;
+		array.insert(i, value);
+	}
+
+	while (true) {
+		cout << "请输入要访问的元素序号(0表示结束):";
+		cin >> i;
+		if (i == 0) break;
+		if (array.fatch(i, value)) cout << value << endl;
+		else cout << "下标越界\n";
+	}
+
+	return 0;
+}
+
+
+
+代码清单10 - 14 CreateAndDestroy类的定义
+class CreateAndDestroy
+{
+private:
+	int objectID;
+
+public:
+	CreateAndDestroy(int);
+	~CreateAndDestroy();
+};
+
+CreateAndDestroy::CreateAndDestroy(int n) {
+	objectID = n;
+	cout << "构造对象" << objectID << endl;
+}
+
+CreateAndDestroy::~CreateAndDestroy() {
+	cout << "析构对象" << objectID << endl;
+}
+
+
+
+代码清单10 - 15 变量生命周期的验证
+#include <iostream.h>
+CreateAndDestroy global(0);
+
+void f1() {
+	cout << "函数f1:" << endl;
+	static CreateAndDestroy obj1(1);
+	CreateAndDestroy obj2(2);
+}
+
+int main() {
+	CreateAndDestroy obj4(4);
+
+	f1();
+	f1();
+
+	return 0;
+}
+
+
+
+
+代码清单10 - 16 复数类的定义
+// 文件名:complex.h
+// 复数类的定义
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+private:
+	double real;
+	double imag;
+
+public:
+	Complex(double r = 0, double i = 0) {
+		real = r; imag = i;
+	}
+
+	void add(const Complex &c1, const Complex &c2) {
+		real = c1.real + c2.real;
+		imag = c1.imag + c2.imag;
+	}
+
+	void sub(const Complex &c1, const Complex &c2) {
+		real = c1.real - c2.real;
+		imag = c1.imag - c2.imag;
+	}
+
+	void multi(const Complex &c1, const Complex &c2) {
+		real = c1.real * c2.real - c1.imag * c2.imag;
+		imag = c1.real * c2.imag + c2.real * c1.imag;
+	}
+
+	void display() {
+		if (imag > 0) cout << real << '+' << imag << 'i' << endl;
+		else cout << real << imag << 'i' << endl;              //  虚部是负数
+	}
+};
+
+
+
+代码清单10 - 17 复数类的应用
+// 文件名:10-17.cpp
+// 复数类的应用
+#include “complex.h”
+
+int main() {
+	Complex c1(2, 2), c2(1, 3), c3;
+
+	c1.display();
+	c2.display();
+
+	c3.add(c1, c2);
+	c3.display();
+	c3.sub(c1, c2);
+	c3.display();
+	c3.multi(c1, c2);
+	c1.display();
+
+	return 0;
+}
+
+
+
+代码清单10 - 18 StaticSample类的定义
+//文件名:StaticSample.h
+//静态数据成员和静态成员函数示例
+#ifndef _StaticSample_h
+#define _StaticSample_h
+#include <iostream>
+using namespace std;
+
+class StaticSample
+{
+private:
+	static int obj_count;
+	static int obj_living;
+public:
+	StaticSample() { ++obj_count; ++obj_living; }
+	~StaticSample() { --obj_living; }
+	static void display() 	//静态成员函数
+	{
+		cout << "总对象数:" << obj_count << "\t存活对象数:" << obj_living << endl;
+	}
+};
+#endif
+
+//StaticSample.cpp
+#include "StaticSample.h"
+int StaticSample::obj_count = 0;	//静态数据成员的定义及初始化
+int StaticSample::obj_living = 0; 	//静态数据成员的定义及初始化
+
+
+
+代码清单10 - 19 StaticSample类的使用
+//文件名:Static Sample.cpp
+//Static Sample类的使用
+#include "StaticSample.h"
+
+int main() {
+	StaticSample::display(); 	//通过类名限定调用静态成员函数
+
+	StaticSample s1, s2;
+	StaticSample::display();
+
+	StaticSample *p1 = new StaticSample, *p2 = new StaticSample;
+	s1.display(); 	//通过对象调用静态成员函数
+
+	delete p1;
+	p2->display(); 	//通过指向对象的指针调用静态成员函数
+
+	delete p2;
+	StaticSample::display();
+
+	return 0;
+}
+
+
+
+代码清单10 - 20 Good类的定义
+//文件名:Goods.h
+//货物类的定义
+#ifndef _goods_h
+#define _goods_h
+class Goods
+{
+	int weight;
+	static int total_weight;
+public: Goods(int w);
+		~Goods();
+		int weight() const;
+		static int totalweight() const;
+};
+#endif
+
+//文件名:Goods.cpp
+//货物类的实现
+#include "goods.h"
+
+Goods::Goods(int w) { weight = w;  total_weight += w; }
+Goods::~Goods() { total_weight -= weight; }
+int Goods::weight() const { return weight; }
+int Goods::totalweight() const { return total_weight; }
+int Goods::total_weight = 0;
+
+
+
+
+代码清单10 - 21 Girl类的定义及使用
+//文件名:10-21.cpp
+//Girl类的定义及使用
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Girl
+{
+	friend void disp(const Girl &x);
+private:
+	char name[10];
+	int age;
+public:
+	Girl(char *n, int d) { strcpy(name, n);  age = d; }
+};
+
+void disp(const Girl &x) { cout << x.name << "  " << x.age << endl; } //友元函数的定义
+
+int main() {
+	Girl e("abc", 15);
+	disp(e);
+
+	return 0;
+}
+
+
+
+代码清单11 - 1 Rational类的定义
+// 用成员函数重载+､*､<､==后的有理数类的定义
+class Rational
+{
+private:
+	int num;
+	int den;
+	void ReductFraction();
+public:
+	Rational(int n = 0, int d = 1) { num = n; den = d; ReductFraction(); }
+	Rational operator+(const Rational &r1) const;   //+运算符重载
+	Rational operator*(const Rational &r1) const;   //*运算符重载
+	bool operator<(const Rational &r1) const;       //<运算符重载
+	bool operator==(const Rational &r1) const;      //==运算符重载
+	void display() const { cout << num << '/' << den; }
+};
+
+
+
+代码清单11 - 2 Rational类的运算符重载函数的实现
+// 有理数类的运算符重载函数的实现,运算符被重载成成员函数
+Rational Rational::operator+(const Rational &r1) const {
+	Rational tmp;
+
+	tmp.num = num * r1.den + r1.num * den;
+	tmp.den = den * r1.den;
+	tmp.ReductFraction();
+
+	return tmp;
+}
+
+Rational Rational::operator*(const Rational &r1) const {
+	Rational tmp;
+
+	tmp.num = num * r1.num;
+	tmp.den = den * r1.den;
+	tmp.ReductFraction();
+
+	return tmp;
+}
+
+bool Rational::operator<(const Rational &r1) const {
+	return num * r1.den < den * r1.num;
+}
+
+bool Rational::operator==(const Rational &r1) const {
+	return num == r1.num && den == r1.den;
+}
+
+
+
+代码清单11 - 3 重载了加和乘运算后的Rational类的使用
+//文件名:11-3.cpp
+//重载了+和*运算符的Rational类的使用
+#include <iostream>
+using namespace std;
+
+#include "Rational.h"
+
+int main() {
+	Rational r1(1, 6), r2(1, 6), r3;
+
+	r3 = r1 + r2;                             //r3 = r1.operator+(r2)
+	r1.display(); cout << " + "; r2.display();
+	cout << " = "; r3.display(); cout << endl;
+
+	r3 = r1 * r2;                             //r3 = r1.operator*(r2)
+	r1.display(); cout << " * "; r2.display();
+	cout << " = "; r3.display(); cout << endl;
+
+	cout << (r1 == r2 ? "true" : "false") << endl;
+	cout << (r1 < r3 ? "true" : "false") << endl;
+
+	return 0;
+}
+
+
+
+代码清单11 - 4 用友元函数重载的Rational类的定义
+// 用友元函数重载+､*､<､==的有理数类的定义
+class Rational
+{
+	friend Rational operator+(const Rational &r1, const Rational &r2); //+运算符重载
+	friend Rational operator*(const Rational &r1, const Rational &r2); //*运算符重载
+	friend bool operator<(const Rational &r1, const Rational &r2);     //<运算符重载
+	friend bool operator==(const Rational &r1, const Rational &r2);    //==运算符重载
+
+private:
+	int num;
+	int den;
+
+	void ReductFraction();
+
+public:
+	Rational(int n = 0, int d = 1) { num = n; den = d; ReductFraction(); }
+	void display() const { cout << num << '/' << den; }
+};
+
+代码清单11 - 5 用友元函数重载的Rational类的加和乘运算
+// 重载成友元函数的+､*､<､==重载函数的实现
+Rational operator+(const Rational &r1, const Rational &r2) {
+	Rational tmp;
+	tmp.num = r1.num * r2.den + r2.num * r1.den;
+	tmp.den = r1.den * r2.den;
+	tmp.ReductFraction();
+	return tmp;
+}
+
+Rational operator*(const Rational &r1, const Rational &r2) {
+	Rational tmp;
+	tmp.num = r1.num * r2.num;
+	tmp.den = r1.den * r2.den;
+	tmp.ReductFraction();
+	return tmp;
+}
+
+bool operator<(const Rational &r1, const Rational &r2) {
+	return r1.num * r2.den < r1.den * r2.num;
+}
+
+bool operator==(const Rational &r1, const Rational &r2) {
+	return r1.num == r2.num && r1.den == r2.den;
+}
+
+
+
+代码清单11 - 6 复数类的定义
+class Complex
+{
+	friend Complex operator+(const Complex &c1, const Complex &c2)     // c1 + c2
+	{
+		return Complex(c1.real + c2.real, c1.imag + c2.imag);
+	}
+	friend Complex operator-(const Complex &c1, const Complex &c2)     // c1 – c2
+	{
+		return Complex(c1.real + c2.real, c1.imag + c2.imag);
+	}
+	friend Complex operator*(const Complex &c1, const Complex &c2)      // c1 * c2
+	{
+		return Complex(c1.real * c2.real - c1.imag * c2.imag, c1.real * c2.imag + c2.real * c1.imag);
+	}
+
+private:
+	double real;
+	double imag;
+
+public:
+	Complex(double r = 0, double i = 0) {
+		real = r; imag = i;
+	}
+
+	void display() const {
+		if (imag > 0) cout << real << '+' << imag << 'i' << endl;
+		else cout << real << imag << 'i' << endl;
+	}
+};
+
+
+
+代码清单11 - 7 复数类的应用
+int main() {
+	Complex c1(2, 2), c2(1, 3), c3;
+
+	c1.display();
+	c2.display();
+
+	c3 = c1 + c2;         // c3 = operator+(c1,c2)
+	c3.display();
+	c3 = c1 - c2;         // c3 = operator-(c1,c2)
+	c3.display();
+	c3 = c1 * c2;         // c3 = operator*(c1,c2)
+	c1.display();
+
+	return 0;
+}
+
+
+
+代码清单 11 - 8 DoubleArray类的赋值运算符重载函数
+// DoubleArray类的赋值运算符重载函数的定义
+DoubleArray &DoubleArray::operator=(const DoubleArray &right) {
+	if (this == &right) return *this;               //防止自己复制自己
+
+	delete[] storage;                            //归还空间
+
+	low = right.low;
+	high = right.high;
+	storage = new double[high - low + 1];           //根据新的数组大小重新申请空间
+	for (int i = 0; i <= high - low; ++i) storage[i] = right.storage[i];      //复制数组元素
+
+	return *this;
+}
+
+
+
+
+代码清单11 - 9  DoubleArray类的下标运算符重载函数
+// DoubleArray类的下标运算符重载函数的定义
+double & DoubleArray::operator[](int index) {
+	if (index < low || index > high) { cout << "下标越界"; exit(-1); }
+	return storage[index - low];
+}
+
+
+
+代码清单11 - 10 DoubleArray类中的函数调用运算符重载函数
+// DoubleArray类中的函数调用运算符重载函数的定义
+DoubleArray operator()(int start, int end, int lh) {
+	if (start > end || start < low || end > high)     // 判断范围是否正确
+	{
+		cout << "下标越界"; exit(-1);
+	}
+
+	DoubleArray tmp(lh, lh + end - start);             // 为取出的数组准备空间
+	for (int i = 0; i < end - start + 1; ++i)
+		tmp.storage[i] = storage[start + i - low];
+
+	return tmp;
+}
+
+
+代码清单11 - 11 Rational类中++和 - -的重载函数的实现
+Rational &Rational::operator++()             // 前缀++
+{
+	num += den;
+	return *this;
+}
+
+Rational Rational::operator++(int x)          // 后缀++
+{
+	Rational tmp = *this;
+
+	num += den;
+	return tmp;
+}
+
+Rational &Rational::operator--()              // 前缀--
+{
+	num -= den;
+	return *this;
+}
+
+Rational Rational::operator--(int x)          // 后缀--
+{
+	Rational tmp = *this;
+
+	num -= den;
+	return tmp;
+}
+
+代码清单11 - 12 Rational类的使用
+int main() {
+	Rational r1(1, 6), r2(1, 6), r3;
+
+	cout << (r1 == r2++ ? "true" : "false") << endl;
+	r2.display();
+	cout << endl;
+	r3 = ++r1 + r2;              // r3 = (++r1).operator+(r2)或r3 = operator+(++r1,r2)
+	r3.display();
+	cout << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单11 - 13 Counter类的定义
+// 文件名:Counter.h
+// Counter类的定义
+class Counter
+{
+	int value;                                //计数器的值 
+	int alarm;                                //报警值
+public:
+	Counter(int a) { value = 0; alarm = a; }
+	Counter & operator++();                   //前缀的++重载
+	Counter operator++(int);                  //后缀的++重载
+	void print() const { cout << value << endl; }
+};
+
+
+
+代码清单11 - 14 ++的两个重载函数的定义
+// 文件名:Counter.cpp
+// Counter类重载函数的定义
+Counter & Counter::operator++() {
+	if (value == alarm) cout << "已超过报警值\n";
+	else  ++value;
+
+	return *this;
+}
+
+Counter Counter::operator++(int x) {
+	Counter tmp = *this; 			                  //保存对象修改前的状态
+
+	if (value == alarm) cout << "已超过报警值\n";
+	else  ++value;
+
+	return tmp;			 	                      //返回修改前的状态
+}
+
+
+代码清单11 - 15 Counter类的使用
+// 文件名:11-15.cpp
+// Counter类的使用实例
+int main() {
+	Counter cnt(3); 		//定义一个Counter类的对象,报警值为3
+
+	cnt.print(); 			//显示对象的当前值,此时输出为0
+	++cnt;
+	cnt.print(); 			//此时输出为1
+	(++cnt).print(); 		//调用前缀的++,输出2
+	(cnt++).print(); 		//调用后缀的++,当前对象的value已经加1,但输出的是2
+	cnt.print(); 			//输出值为3
+
+	return 0;
+}
+
+
+
+
+代码清单11 - 16 Rational类的完整定义
+//文件名:Rational.h
+//Rational类的完整定义
+#ifndef _rational_h
+#define _rational_h
+#include <iostream.h>
+
+class Rational
+{
+	friend istream& operator >> (istream &in, Rational& obj);       //输入重载函数
+	friend ostream& operator<<(ostream &os, const Rational& obj); //输出重载函数
+	friend Rational operator+(const Rational &r1, const Rational &r2); //+运算符重载
+	friend Rational operator*(const Rational &r1, const Rational &r2); //*运算符重载
+	friend bool operator<(const Rational &r1, const Rational &r2);     //<运算符重载
+	friend bool operator==(const Rational &r1, const Rational &r2);    //==运算符重载
+
+private:
+	int num;
+	int den;
+
+	void ReductFraction();
+
+public:
+	Rational(int n = 0, int d = 1) { num = n; den = d; ReductFraction(); }
+	operator double() const { return (double(num) / den); }       // 类型转换函数
+};
+#endif
+
+
+
+
+代码清单11 - 17 Rational类的实现
+//文件名:Rational.cpp
+//Rational类的完整实现
+#include <iostream.h>
+#include "Rational.h"
+
+Rational operator+(const Rational &r1, const Rational &r2) //+重载
+{
+	Rational tmp;
+
+	tmp.num = r1.num * r2.den + r2.num * r1.den;
+	tmp.den = r1.den * r2.den;
+	tmp.ReductFraction();
+
+	return tmp;
+}
+
+Rational operator*(const Rational &r1, const Rational &r2) //*重载
+{
+	Rational tmp;
+
+	tmp.num = r1.num * r2.num;
+	tmp.den = r1.den * r2.den;
+	tmp.ReductFraction();
+
+	return tmp;
+}
+
+void Rational::ReductFraction() //化简有理数
+{
+	int tmp = (num > den) ? den : num;
+
+	for (; tmp > 1; --tmp)
+		if (num % tmp == 0 && den % tmp == 0) { num /= tmp; den /= tmp; break; }
+}
+
+istream& operator >> (istream &in, Rational& obj) //输入重载函数
+{
+	in >> obj.num >> obj.den;
+	obj.ReductFraction();
+	return in;
+}
+
+ostream& operator<<(ostream &os, const Rational& obj) //输出重载函数
+{
+	os << obj.num << '/' << obj.den;
+	return os;
+}
+
+bool operator<(const Rational &r1, const Rational &r2) {
+	return r1.num * r2.den < r1.den * r2.num;
+}
+
+bool operator==(const Rational &r1, const Rational &r2) {
+	return r1.num == r2.num && r1.den == r2.den;
+}
+
+
+
+代码清单11 - 18 Rational类的使用
+//文件名:11-18.cpp
+//Rational类的使用
+#include <iostream.h>
+#include "Rational.h"
+
+int main() {
+	Rational r1, r2, r3, r4;
+	double x;
+
+	cout << "输入r1: ";  cin >> r1;              //调用operator>>
+	cout << "输入r2: ";  cin >> r2;
+
+	r3 = r1 + r2;                                     //调用operator+实现加运算
+	cout << r1 << '+' << r2 << " = " << r3 << endl;   //调用operator<<
+
+	r3 = r1 * r2;                                     //调用operator*实现乘运算
+	cout << r1 << '*' << r2 << " = " << r3 << endl;
+
+	r4 = (r1 + r2) * r3;                              //复杂表达式的计算
+	cout << "(r1 + r2) * r3的值为:" << r4 << endl;
+
+	x = 5.5 - r1;                              // 自动类型转换,将r1转换成double
+	cout << "5.5 - r1的值为:" << x << endl;
+
+	cout << (r1 < r2 ? r1 : r2) << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单11 - 19 DoubleArray类的完整定义
+//文件名:DoubleArray.h
+//DoubleArray类的定义
+#ifndef _array_h
+#define _array_h
+
+#include <iostream.h>
+
+class DoubleArray
+{
+	friend ostream &operator<<(ostream &os, const DoubleArray &obj);
+	friend istream &operator >> (istream &is, DoubleArray &obj);
+	friend bool operator==(const DoubleArray &obj1, const DoubleArray &obj2);
+
+private:
+	int low;
+	int high;
+	double *storage;
+
+public:
+	// 构造函数根据low和high为数组分配空间
+	DoubleArray(int lh = 0, int rh = 0) :low(lh), high(rh) {
+		storage = new double[high - low + 1];
+	}
+
+	// 复制构造函数
+	DoubleArray(const DoubleArray &arr);
+
+	// 赋值运算符重载函数
+	DoubleArray &operator=(const DoubleArray &right);
+
+	// 下标运算符重载函数
+	double & operator[](int index);                  //  作为左值
+	const double & operator[](int index) const;       // 作为右值
+
+													  // 取数组的一部分形成一个新的数组
+	DoubleArray operator()(int start, int end, int lh);
+
+	//析构函数
+	~DoubleArray() { if (storage) delete[] storage; }
+};
+#endif
+
+
+代码清单11 - 20 DoubleArray类的实现
+//文件名:DoubleArray.cpp
+//DoubleArray类的实现
+#include <cassert>
+#include "DoubleArray.h"
+
+DoubleArray::DoubleArray(const DoubleArray &arr) {
+	low = arr.low;
+	high = arr.high;
+	storage = new double[high - low + 1];
+	for (int i = 0; i < high - low + 1; ++i)  storage[i] = arr.storage[i];
+}
+
+DoubleArray &DoubleArray::operator=(const DoubleArray & a) {
+	if (this == &a) return *this;                 //防止自己复制自己
+
+	delete[] storage; //归还空间
+
+	low = a.low;  high = a.high;
+	storage = new double[high - low + 1];         //根据新的数组大小重新申请空间
+	for (int i = 0; i <= high - low; ++i) storage[i] = a.storage[i]; //复制数组元素
+
+	return *this;
+}
+
+double & DoubleArray::operator[](int index) {
+	assert(index >= low && index <= high);
+	return storage[index - low];
+}
+
+const double & DoubleArray::operator[](int index) const {
+	assert(index >= low && index <= high);
+	return storage[index - low];
+}
+
+ostream &operator<<(ostream &os, const DoubleArray &obj) {
+	os << "数组内容为:\n";
+	for (int i = obj.low; i <= obj.high; ++i) os << obj[i] << '\t';
+	os << endl;
+
+	return os;
+}
+
+istream &operator >> (istream &is, DoubleArray &obj) {
+	cout << "请输入数组元素[" << obj.low << ", " << obj.high << "]:\n";
+	for (int i = obj.low; i <= obj.high; ++i)   is >> obj[i];
+
+	return is;
+}
+
+bool operator==(const DoubleArray &obj1, const DoubleArray &obj2) {
+	if (obj1.low != obj2.low || obj1.high != obj2.high) return false;
+	for (int i = obj1.low; i <= obj1.high; ++i)
+		if (obj1[i] != obj2[i]) return false;
+	return true;
+}
+
+DoubleArray DoubleArray::operator()(int start, int end, int lh) {
+	assert(start <= end && start >= low && end <= high);     // 判断范围是否正确
+
+	DoubleArray tmp(lh, lh + end - start);                 // 为取出的数组准备空间
+	for (int i = 0; i < end - start + 1; ++i)
+		tmp.storage[i] = storage[start + i - low];
+
+	return tmp;
+}
+
+
+代码清单11 - 21 DoubleArray的使用
+//文件名:11-21.cpp
+//DoubleArray类的使用
+#include "DoubleArray.h"
+
+int main() {
+	DoubleArray array1(20, 30), array2;
+
+	cin >> array1;                           //利用流提取运算符重载输入array1
+	cout << "array1 "; cout << array1;       //利用流插入运算符重载输出array1
+
+	array2 = array1;                   //利用赋值运算符重载将array1赋给array2
+
+	cout << "执行 array2 = array1, array2 ";
+	cout << array2;
+
+	//利用==重载比较array1和array2
+	cout << "array1 == array2 是 " << ((array1 == array2) ? "true" : "false") << endl;
+
+	array2[25] = 0;                      //利用下标运算符重载为array2的元素赋值
+
+	cout << "执行array[25] = 0后, array1 == array2 是 "
+		<< ((array1 == array2) ? "true" : "false") << endl;
+
+	array2 = array1(22, 25, 2);
+	cout << "执行array2 = array1(22, 25, 2)后, array2 的值为: " << array2;
+
+	return 0;
+}
+
+
+
+
+代码清单12 - 1 Complex类的定义
+// Complex.h
+// 复数类的定义
+class Complex
+{
+	friend Complex operator+(const Complex &x, const Complex &y);
+	friend istream& operator >> (istream &is, Complex &obj);
+	friend ostream& operator<<(ostream &os, const Complex &obj);
+
+	Rational real;  //实部
+	Rational imag;  //虚部
+public:
+	Complex(int r1 = 0, int r2 = 1, int i1 = 0, int i2 = 1) :real(r1, r2), imag(i1, i2) {}
+};
+
+
+
+
+代码清单12 - 2 Complex类的重载函数的实现
+// 文件名:Complex.cpp
+// 复数类重载函数的实现
+Complex operator+(const Complex &x, const Complex &y) //加法运算符重载
+{
+	return Complex(x.real + y.real, x.imag + y.imag);
+}
+
+istream& operator >> (istream &is, Complex &obj)                //输入运算符重载
+{
+	cout << "请输入实部:";
+	is >> obj.real;                      //利用Rational类的输入重载实现实部的输入
+	cout << "请输入虚部:";
+	is >> obj.imag;                       //利用Rational类的输入重载实现虚部的输入
+
+	return is;
+}
+
+ostream& operator<<(ostream &os, const Complex &obj)      //输出运算符重载
+{
+	//利用Rational类的输出重载实现实部和虚部的输出
+	if (obj.imag >= 0) os << '(' << obj.real << " + " << obj.imag << "i" << ')';
+	else os << '(' << obj.real << obj.imag << "i" << ')';
+
+	return os;
+}
+
+
+代码清单12 - 3 Complex类的使用
+//文件名:12-3.cpp
+//Complex类的使用
+int main() {
+	Complex x1, x2, x3;
+
+	cout << "请输入x1:\n"; cin >> x1;                 //利用输入重载输入复数x1
+	cout << "请输入x2:  \n"; cin >> x2;                //利用输入重载输入复数x2
+
+	x3 = x1 + x2;                                    //利用加运算符重载完成加法
+	cout << x1 << " + " << x2 << " = " << x3 << endl;   //利用输出重载输出复数
+
+	return 0;
+}
+
+
+代码清单12 - 4 Point类的定义及成员函数的实现
+class Point
+{
+	friend istream &operator >> (istream &is, Point &obj) {
+		is >> obj.x >> obj.y; return is;
+	}
+	friend ostream &operator<<(ostream &os, const Point &obj) {
+		os << "( " << obj.x << ", " << obj.y << " )"; return os;
+	}
+
+private:
+	double x, y;
+public:
+	Point(double a = 0, double b = 0) { x = a; y = b; }
+	double getx() const { return x; }
+	double gety() const { return y; }
+};
+
+
+
+
+代码清单12 - 5 Segment类的定义及成员函数的实现
+class Segment
+{
+	friend istream &operator >> (istream &is, Segment &obj);
+	friend ostream &operator<<(ostream &os, const Segment &obj);
+private:
+	Point start;
+	Point end;
+public:
+	Segment(double x1 = 0, double y1 = 0, double x2 = 0, double y2 = 0) :start(x1, y1), end(x2, y2) {}
+	Segment(Point p1, Point p2) { start = p1; end = p2; }
+	double getLength() const;
+	Point getMid() const;
+	Point getStart() const { return start; }
+	Point getEnd() const { return end; }
+};
+
+istream &operator >> (istream &is, Segment &obj) {
+	cout << "请输入起点坐标:";
+	is >> obj.start;
+	cout << "请输入终点坐标:";
+	is >> obj.end;
+	return is;
+}
+
+ostream &operator<<(ostream &os, const  Segment &obj) {
+	os << obj.start << " - " << obj.end; return os;
+}
+
+double Segment::getLength() const {
+	double x1 = start.getx(), x2 = end.getx(), y1 = start.gety(), y2 = end.gety();
+	return sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
+}
+
+Point Segment::getMid() const {
+	return Point((start.getx() + end.getx()) / 2, (start.gety() + end.gety()) / 2);
+}
+
+代码清单12 - 6 Segment类的使用
+int main() {
+	Point p1(1, 1), p2(3, 3);
+	Segment s1, s2(p1, p2);
+
+	cout << s1 << '\n' << s2 << endl;
+
+	cin >> s1;
+	cout << s1.getStart() << s1.getEnd() << s1.getMid() << endl;
+
+	return 0;
+}
+
+
+
+代码清单12 - 7 triangle类的定义及使用
+class triangle
+{
+	Point p1;
+	Point p2;
+	Point p3;
+public:
+	triangle(double x1 = 0, double y1 = 0, double x2 = 0, double y2 = 0, double x3 = 0, double y3 = 0)
+		:p1(x1, y1), p2(x2, y2), p3(x3, y3) {
+	}
+	triangle(Point pt1, Point pt2, Point pt3) :p1(pt1), p2(pt2), p3(pt3) {}
+	double area() const;
+	double circum() const;
+	void sideLen(double &len1, double &len2, double &len3) const;
+};
+
+void triangle::sideLen(double &len1, double &len2, double &len3) const {
+	len1 = Segment(p1, p2).getLength();
+	len2 = Segment(p1, p3).getLength();
+	len3 = Segment(p3, p2).getLength();
+}
+
+double triangle::circum() const {
+	double s1, s2, s3;
+	sideLen(s1, s2, s3);
+
+	return s1 + s2 + s3;
+}
+
+double triangle::area() const {
+	double len1, len2, len3, p;
+
+	sideLen(len1, len2, len3);
+	p = (len1 + len2 + len3) / 2;
+
+	return sqrt(p *(p - len1)*(p - len2)*(p - len3));
+}
+
+int main() {
+	Point p1(1, 1), p2(3, 1), p3(2, 2);
+	triangle t1(0, 0, 0, 1, 1, 0), t2(p1, p2, p3);
+
+	cout << t1.area() << " " << t1.circum() << '\n' << t2.area() << " " << t2.circum() << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单12 - 8 People类的定义与实现
+// people类的定义与实现
+class People
+{
+public:
+	People(const char *s, int a) {    // 构造函数 
+		name = new char[strlen(s) + 1];
+		strcpy(name, s);
+		age = a;
+		cout << "People constructor:" << '[' << name << "]   age : " << age << endl;
+	};
+	~People() {    // 析构函数
+		cout << "People destructor: " << '[' << name << "]   age : " << age << endl;
+		delete name;
+	}
+protected:
+	char *name;
+	int age;
+};
+
+
+
+代码清单12 - 9 Student类的定义与实现
+// Student类的定义与实现
+class Student :public People
+{
+public:
+	Student(const char *s, int a, int n, char *cls) : People(s, a) {
+		s_no = n;
+		class_no = new char[strlen(cls) + 1];
+		strcpy(class_no, cls);
+		cout << "Student constructor: student number is " << s_no
+			<< ", class number is " << class_no << endl;
+	}
+	~Student() {
+		cout << "Student destructor:  student numberis " << s_no
+			<< ", class number is " << class_no << endl;
+		delete class_no;
+	}
+
+private:
+	int s_no;
+	char *class_no;
+};
+
+
+
+代码清单12 - 10 People类和Student类的使用
+// 文件名:12-10.cpp
+// People类和Student类的使用
+int main() {
+	{ People p("zhang", 1);  }
+	cout << endl;
+	Student s1("li", 2, 29, "F1003001");
+	cout << endl;
+	Student s2("wang", 3, 30, "F1102008");
+	cout << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单12 - 11 派生类定义实例
+class car
+{
+	char no[10];
+	char owner[10];
+	char type[20];
+public:
+	car(char *s1, char *s2, char *s3) {
+		strcpy(no, s1);
+		strcpy(owner, s2);
+		strcpy(type, s3);
+	}
+
+	void modifyNo(char *s) { strcpy(no, s); }
+	void modifyOwner(char *s) { strcpy(owner, s); }
+	const char *getNo() const { return no; }
+	const char *getOwner() const { return owner; }
+	const char *getType() const { return type; }
+};
+
+class taxi : public car
+{
+	int seat;
+	double price;
+public:
+	taxi(char *s1, char *s2, char *s3, int s, double p) :car(s1, s2, s3) {
+		seat = s;  price = p;
+	}
+	double operator() (int start, int end) { return price *(end - start); }
+	int getSeat() const { return seat; }
+	double getPrice() const { return price; }
+};
+
+int main() {
+	car car1("沪A01100", "张三", "法拉利");
+	taxi taxi1("沪B01100", "李四", "桑塔纳", 5, 2.5);
+
+	cout << car1.getNo() << " " << car1.getOwner() << " " << car1.getType() << endl;
+	cout << taxi1.getNo() << " " << taxi1.getOwner() << " " << taxi1.getType() << endl;
+	cout << taxi1(1000, 1005) << endl;
+
+	return 0;
+}
+
+
+
+
+
+代码清单12 - 12 派生类定义实例
+class pool
+{
+	double area;
+	double depth;
+public:
+	pool(double a = 200, double d = 2) :area(a), depth(d) {}
+	double getArea() const { return area; }
+	double getDepth() const { return depth; }
+};
+
+class swimmingPool : public pool
+{
+	char time[15];
+	double price;
+public:
+	swimmingPool(double a, double d, char *t, double p) :pool(a, d) {
+		strcpy(time, t);  price = p;
+	}
+	swimmingPool() { time[0] = '\0'; price = 0; }
+	void setTime(char *t) { strcpy(time, t); }
+	void setPrice(double p) { price = p; }
+	const char *getTime() const { return time; }
+	double getPrice() const { return price; }
+};
+
+class fishPond : public pool
+{
+	char type[15];
+	double quantity;
+public:
+	fishPond(double a, double d, char *t, double p) :pool(a, d) {
+		strcpy(type, t);  quantity = p;
+	}
+	fishPond() { type[0] = '\0'; quantity = 0; }
+	void setType(char *t) { strcpy(type, t); }
+	void setQuantity(double p) { quantity = p; }
+	const char *getType() const { return type; }
+	double getQuantity() const { return quantity; }
+};
+
+
+
+
+代码清单12 - 13 读者类的定义
+// 文件名:reader.h
+// 图书馆各类读者的定义
+class reader
+{
+	int no;
+	char name[10];
+	char dept[20];
+public:
+	reader(int n, char *nm, char *d) {
+		no = n;
+		strcpy(name, nm);
+		strcpy(dept, d);
+	}
+};
+
+class readerTeacher :public reader
+{
+	enum { MAX = 10 };                      //最多允许借的数量,是整个类共享的常量
+	int borrowed;
+	int record[MAX];
+public:
+	readerTeacher(int n, char *nm, char *d) :reader(n, nm, d) { borrowed = 0; }
+	bool bookBorrow(int bookNo);          //借书成功,返回true,否则返回false
+	bool bookReturn(int bookNo);          //还书成功,返回true,否则返回false
+	void show() const;                                     //显示已借书信息
+};
+
+class readerStudent :public reader
+{
+	enum { MAX = 5 };                      //最多允许借的数量,是整个类共享的常量
+	int borrowed;
+	int record[MAX];
+public:
+	readerStudent(int n, char *nm, char *d) :reader(n, nm, d) { borrowed = 0; }
+	bool bookBorrow(int bookNo);             //借书成功,返回true,否则返回false
+	bool bookReturn(int bookNo);            //还书成功,返回true,否则返回false
+	void show() const;                                       //显示已借书信息
+};
+
+
+
+代码清单12 - 14 教师读者类成员函数的实现
+// 文件名:reader.cpp
+// 图书馆各个读者类的成员函数的实现
+
+//借书成功,返回true,否则返回false
+bool readerTeacher::bookBorrow(int bookNo) {
+	if (borrowed == MAX) return false;
+	else record[borrowed++] = bookNo;
+
+	return true;
+}
+
+//还书成功,返回true,否则返回false
+bool readerTeacher::bookReturn(int bookNo) {
+	int i;
+
+	for (i = 0; i < borrowed; ++i) if (record[i] == bookNo) break;
+	if (i == borrowed) return false;
+	while (++i < borrowed)  record[i - 1] = record[i];
+	--borrowed;
+
+	return true;
+}
+
+//显示已借书信息
+void readerTeacher::show() const {
+	for (int i = 0; i < borrowed; ++i)
+		cout << record[i] << '\t';
+}
+
+
+
+
+代码清单12 - 15 People和Student类的赋值运算符重载函数
+// 为People和Student类的重载赋值运算符,注意派生类的赋值运算符重载函数中对基类对象的复制
+People &operator=(const People &other) {
+	if (this == &other) return *this;
+
+	delete name;
+	name = new char[strlen(other.name) + 1];
+	strcpy(name, other.name);
+	age = other.age;
+
+	return *this;
+}
+
+Student &operator=(const Student &other) {
+	if (this == &other) return *this;
+
+	s_no = other.s_no;
+	delete class_no;
+	class_no = new char[strlen(other.class_no) + 1];
+	strcpy(class_no, other.class_no);
+	People::operator=(other);
+
+	return *this;
+}
+
+
+
+代码清单12 - 16 派生类作为基类
+//派生类作为基类实例
+class Base
+{
+	int x;
+public:
+	Base(int xx) { x = xx; cout << "constructing base\n"; }
+	~Base() { cout << "destructint base\n"; }
+};
+
+class Derive1 :public Base
+{
+	int y;
+public:
+	Derive1(int xx, int yy) : Base(xx) {
+		y = yy; cout << "constructing derive1\n";
+	}
+	~Derive1() { cout << "destructing derive1\n"; }
+};
+
+class Derive2 :public Derive1
+{
+	int z;
+public:
+	Derive2(int xx, int yy, int zz) :Derive1(xx, yy) {
+		z = zz; cout << "constructing derive2\n";
+	}
+	~Derive2() { cout << "destructing derive2\n"; }
+};
+
+
+
+
+代码清单12 - 17 虚函数定义示例
+// 虚函数的定义,其中的area和display函数都是虚函数
+class Shape
+{
+protected:
+	double x, y;                                     // x､y是图形的位置
+public:
+	Shape(double xx, double yy) { x = xx; y = yy; }
+	virtual double area() const { return 0.0; }
+	virtual void display() const {
+		cout << "This is a shape. The position is (" << x << ", " << y << ")\n";
+	}
+};
+
+class Rectangle :public Shape
+{
+protected:
+	double w, h;                                   // w､h是矩形的宽和高
+public:
+	Rectangle(double xx, double yy, double ww, double hh) : Shape(xx, yy), w(ww), h(hh) {}
+	double area() const { return w * h; }          //重定义虚函数area
+	void display() const                           //重定义虚函数display
+	{
+		cout << "This is a rectangle. The position is (" << x << ", " << y << ")\t";
+		cout << "The width is " << w << ". The height is " << h << endl;
+	}
+};
+
+class Circle :public Shape
+{
+protected:
+	double r;                                      // r是圆的半径
+public:
+	Circle(double xx, double yy, double rr) : Shape(xx, yy), r(rr) {}
+	double area()  const { return 3.14 * r * r; }
+	void display() const {
+		cout << "This is a Circle. The position is (" << x << ", " << y << ")\t";
+		cout << "The radius is " << r << endl;
+	}
+};
+
+
+
+
+代码清单12 - 18  抽象类实例
+class Shape
+{
+protected:
+	double x, y;
+public:
+	Shape(double xx, double yy) { x = xx; y = yy; }
+	virtual double area() const = 0;
+	virtual void display()const {
+		cout << "This is a shape. The position is (" << x << ", " << y << ")\n";
+	}
+};
+
+
+
+代码清单13 - 1 可指定下标范围的､安全的动态数组的定义
+// 可指定下标范围的､支持任意类型的､安全的动态数组的定义
+template <class T>                         // 模板参数T是数组元素的类型
+class Array
+{
+	int low;
+	int high;
+	T *storage;
+
+public:
+	//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+	Array(int lh = 0, int rh = 0) :low(lh), high(rh) {
+		storage = new T[high - low + 1];
+	}
+
+	//复制构造函数
+	Array(const Array &arr);
+
+	//赋值运算符重载函数
+	Array &operator=(const Array & a);
+
+	//下标运算符重载函数
+	T & operator[](int index);
+
+	//回收数组空间
+	~Array() { if (storage) delete[] storage; }
+};
+
+
+
+
+代码清单13 - 2 类模板Array的成员函数的实现
+// 类模板Array的成员函数的实现
+// 复制构造函数
+template <class T>
+Array<T>::Array(const Array<T> &arr) {
+	low = arr.low;
+	high = arr.high;
+	storage = new T[high - low + 1];
+	for (int i = 0; i < high - low + 1; ++i)  storage[i] = arr.storage[i];
+}
+
+// 赋值运算符重载函数
+template <class T>
+Array<T> &Array<T>::operator=(const Array<T> &other) {
+	if (this == &other) return *this;                    //防止自己复制自己
+
+	delete[] storage;                                   //归还空间
+	low = other.low;
+	high = other.high;
+	storage = new T[high - low + 1];                      //根据新的数组大小重新申请空间
+	for (int i = 0; i <= high - low; ++i)                  //复制数组元素
+		storage[i] = other.storage[i];
+
+	return *this;
+}
+
+// 下标运算符重载函数
+template <class T>
+T & Array<T>::operator[](int index) {
+	if (index < low || index > high) {
+		cout << "下标越界"; exit(-1);
+	}
+
+	return storage[index - low];
+}
+
+
+
+
+代码清单13 - 3 下标范围可指定的､安全的静态数组
+// 将数组的下标范围作为模板的非类型参数
+template <class T, int low, int high>
+class Array
+{
+	T storage[high - low + 1];
+public:
+	T & operator[](int index);                       //下标运算符重载函数
+};
+
+template <class T, int low, int high>
+T & Array<T, low, high>::operator[](int index) {
+	if (index < low || index > high) {
+		cout << "下标越界"; exit(-1);
+	}
+
+	return storage[index - low];
+}
+
+
+
+代码清单13 - 4 类模板Array的输出运算符重载函数
+// 类模板的友元实例:重载输出运算符
+template<class type>
+ostream &operator<<(ostream &os, const Array<type> &obj) {
+	os << endl;
+	for (int i = 0; i < obj.high - obj.low + 1; ++i)
+		os << obj.storage[i] << '\t';
+	return os;
+}
+
+
+代码清单13 - 5 增加了输出运算符重载的Array类的定义
+// 类模板的友元实例:重载输入运算符
+template <class T> class Array;	                              //类模板Array的声明
+template<class T> ostream &operator<<(ostream &os, const Array<T>&obj); //输出重载声明
+
+template <class T>
+class Array
+{
+	friend ostream &operator<<(ostream &, const Array<T> &);
+
+private:
+	int low;
+	int high;
+	T *storage;
+
+public:
+	//根据low和high为数组分配空间｡分配成功,返回值为true,否则返回值为false
+	Array(int lh = 0, int rh = 0) :low(lh), high(rh) {
+		storage = new T[high - low + 1];
+	}
+
+	//复制构造函数
+	Array(const Array &arr);
+
+	//赋值运算符重载函数
+	Array &operator=(const Array & a);
+
+	//下标运算符重载函数
+	T & operator[](int index) { return storage[index - low]; }
+
+	//回收数组空间
+	~Array() { delete[] storage; }
+};
+
+
+代码清单13 - 6  结点类和单链表类的定义
+// 单链表模板类中的结点类和链表类的定义
+template <class elemType> class linkList;
+template <class T> ostream &operator<<(ostream &, const linkList<T> &);
+template <class elemType> class Node;
+
+template <class elemType>
+class Node
+{
+	friend class linkList<elemType>;
+	friend ostream &operator<<(ostream &, const linkList<elemType> &);
+private:
+	elemType  data;
+	Node <elemType> *next;
+public:
+	Node(const elemType &x, Node <elemType> *N = NULL) { data = x; next = N; }
+	Node() :next(NULL) {}
+	~Node() {}
+};
+
+template <class elemType>
+class linkList
+{
+	friend ostream &operator<<(ostream &, const linkList<elemType> &);
+protected:
+	Node <elemType> *head;
+	void makeEmpty();                         // 清空链表
+public:
+	linkList() { head = new Node<elemType>; }
+	~linkList() { makeEmpty(); delete head; }
+
+	void create(const elemType &flag);
+};
+
+
+
+代码清单13 - 7  单链表类的成员函数和友元函数的定义
+// 单链表类的成员函数及友元函数的定义
+template <class elemType>
+void linkList<elemType>::makeEmpty() {
+	Node <elemType> *p = head->next, *q;
+	head->next = NULL;
+	while (p != NULL) { q = p->next; delete p;  p = q; }
+}
+
+template <class elemType>
+void linkList<elemType>::create(const elemType &flag) {
+	elemType tmp;
+	Node <elemType> *p, *q = head;
+
+	cout << "请输入链表数据," << flag << "表示结束" << endl;
+
+	while (true) {
+		cin >> tmp;
+		if (tmp == flag) break;
+		p = new Node<elemType>(tmp);
+		q->next = p;
+		q = p;
+	}
+}
+
+template <class T>
+ostream &operator<<(ostream &os, const linkList<T> &obj) {
+	Node <T> *q = obj.head->next;
+
+	os << endl;
+	while (q != NULL) { os << q->data;  q = q->next; }
+
+	return os;
+}
+
+
+
+代码清单13 - 8  类模板的派生实例
+// 在链表类的基础上派生一个栈类
+template <class elemType>
+class Stack :public linkList<elemType>
+{
+public:
+	void push(const elemType &data) {
+		Node <elemType> *p = new Node<elemType>(data);
+		p->next = head->next;
+		head->next = p;
+	}
+	bool pop(elemType &data)                  //栈为空时返回false,出栈的值在data中
+	{
+		Node <elemType> *p = head->next;
+
+		if (p == NULL) return false;
+		head->next = p->next;
+		data = p->data;
+		delete p;
+
+		return true;
+	}
+};
+
+
+
+
+代码清单14 - 1 标准输出示例程序
+//文件名:14-1.cpp
+//标准输出示例
+#include <iostream>
+using namespace std;
+
+int main() {
+	int a = 5, *p = &a;
+	double x = 1234.56;
+	char ch = 'a';
+
+	cout << "a = " << a << endl;	//输出整型变量a的值
+	cout << "x = " << x << endl;	//输出双精度变量x的值
+	cout << "ch = " << ch << endl;	//输出字符型变量ch的值
+	cout << "*p = " << *p << endl;	//输出整型指针p指向的空间中的值
+	cout << "p = " << p << endl;	//输出整型指针p的值,即一个地址
+
+	return 0;
+}
+
+
+
+
+代码清单14 - 2 指向字符的指针输出示例程序
+//文件名:14-2.cpp
+//指向字符的指针输出示例
+#include <iostream>
+using namespace std;
+
+int main() {
+	char *ptr = "abcdef";
+
+	cout << "ptr指向的内容为: " << ptr << endl;
+	cout << "ptr中保存的地址为:" << (void*)ptr << endl;
+
+	return 0;
+}
+
+
+
+
+
+代码清单14 - 3 标准输入示例程序
+//文件名:14-3.cpp
+//标准输入示例
+#include <iostream>
+using namespace std;
+
+int main() {
+	int grade, highestGrade = -1;
+
+	cout << "Enter grade (enter end-of-file to end): ";
+	while (cin >> grade) {
+		if (grade > highestGrade) highestGrade = grade;
+		cout << "Enter grade (enter end-of-file to end): ";
+	}
+	cout << "\n\nHighest grade is: " << highestGrade << endl;
+
+	return 0;
+}
+
+
+
+
+代码清单14 - 4 read和gcount函数的示例程序
+//文件名:14-4.cpp
+//read和gcount函数的应用示例
+#include <iostream>
+using namespace std;
+
+int main() {
+	char buffer[80];
+
+	cout << "Enter a sentence:\n";
+	cin.read(buffer, 20);
+	cout << "\nThe sentence entered was:\n";
+	cout.write(buffer, cin.gcount());
+	cout << endl;
+	cout << "一共输入了" << cin.gcount() << "个字符\n";
+
+	return 0;
+}
+
+
+
+
+代码清单14 - 5 设置整型数的基数的示例程序
+//文件名:14-5.cpp
+//设置整型数的基数的示例
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+	int n;
+
+	cout << "Enter a octal number: "; //读入八进制表示的整型数
+	cin >> oct >> n;
+	cout << "octal " << oct << n << " in hexdecimal is:" << hex << n << '\n';
+	cout << "hexdecimal " << n << " in decimal is:" << dec << n << '\n';
+	cout << setbase(8) << "octal " << n << " in octal is:" << n << endl;
+
+	return 0;
+}
+
+
+
+代码清单14 - 6 设置精度的示例程序
+//文件名:14-6.cpp
+//设置精度的示例
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+	double x = 123.456789, y = 9876.54321;
+
+	for (int i = 9; i > 0; --i) {
+		cout.precision(i);
+		cout << x << '\t' << y << endl;
+	}
+	//或写成for (int i = 9; i > 0; --i)  cout << setprecision(i) << x << '\t' << y << endl;
+
+	return 0;
+}
+
+
+
+代码清单14 - 7 用户自定义流操纵符的示例程序
+//文件名:14-7.cpp
+//用户的定义流操纵符示例
+#include <iostream>
+using namespace std;
+
+ostream &tab(ostream &os) { return os << '\t'; }
+
+int main() {
+	int a = 5, b = 7;
+
+	cout << a << tab << b << endl;
+
+	return 0;
+}
+
+
+代码清单14 - 8 文件的顺序读写
+//文件名:14-8.cpp
+//文件的顺序读写
+#include <iostream>
+#include <fstream>		//使用文件操作必须包含fstream
+using namespace std;
+
+int main() {
+	ofstream out("file");	//定义输出流,并与文件file关联
+	ifstream in;			//定义一个输入流对象
+	int i;
+
+	if (!out) { cerr << "create file error\n"; return 1; }	//如打开文件不成功,则返回
+	for (i = 1; i <= 10; ++i) out << i << ' ';			//将1~10写到输出流对象
+	out.close();
+
+	in.open("file");									//重新以输入方式打开文件file
+	if (!in) { cerr << "open file error\n"; return 1; }
+	while (in >> i) cout << i << ' ';					//读文件,直到遇到文件结束
+	in.close();
+
+	return 0;
+}
+代码清单14 - 9 写一个包含各种类型数据的文件操作的示例程序
+//文件名:14-9.cpp
+//写一个包含各种类型的数据的文件操作的示例
+#include <fstream>
+#include <iostream>
+using namespace std;
+
+int main() {
+	ofstream fout("test");
+
+	if (!fout) { cerr << "cannot open output file\n"; return 1; }
+	fout << 10 << " " << 123.456 << "\"This is a text file\"\n";
+	fout.close();
+
+	return 0;
+}
+
+
+
+代码清单14 - 10 读有各种类型数据的文件的示例程序
+//文件名:14-10.cpp
+//读有各种类型数据的文件的示例
+#include <fstream>
+#include <iostream>
+using namespace std;
+
+int main() {
+	ifstream fin("test");
+	char s[80];
+	int i;
+	float x;
+
+	if (!fin) { cout << "cannot open input file\n"; return 1; }
+	fin >> i >> x >> s; cout << i << " " << x << s;
+	fin.close();
+
+	return 0;
+}
+
+
+
+代码清单14 - 11 文件的随机读写
+//文件名:14-11.cpp
+//文件的随机读写
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+	fstream in("file");
+	int i, count = 0;
+
+	if (!in) { cerr << "open file error\n"; return 1; }
+
+	in.seekp(10);	//重新定位写文件指针
+	in << 20;		//改写文件的内容
+
+	in.seekg(0);	//读文件定位指针移到文件起始处
+	while (in >> i) { cout << i << ' ';  ++count; }
+	cout << ‘\n’ << count << endl;
+	in.close();
+
+	return 0;
+}
+
+
+代码清单14 - 12 Book类的设计与实现
+#include <iostream>
+#include <fstream>		//使用文件操作必须包含fstream
+using namespace std;
+
+int main() {
+	ofstream out("file");	//定义输出流,并与文件file关联
+	ifstream in;			//定义一个输入流对象
+	fstream io;
+	int i;
+
+	//将1~10写到输出流对象
+	if (!out) { cerr << "create file error\n"; return 1; }	//如打开文件不成功,则返回
+	for (i = 1; i <= 10; ++i) out.write(reinterpret_cast<char *> (&i), sizeof(int));
+	out.close();
+
+	in.open("file");									//重新以输入方式打开文件file
+	if (!in) { cerr << "open file error\n"; return 1; }
+	in.read(reinterpret_cast<char *> (&i), sizeof(int));
+	while (!in.eof()) {                                    //读文件,直到遇到文件结束
+		cout << i << ' ';
+		in.read(reinterpret_cast<char *> (&i), sizeof(int));
+	}
+	in.close();
+	cout << endl;
+
+	// 改写6为20
+	io.open("file");
+	io.seekp(5 * sizeof(int));             // 写文件定位到6的位置
+	i = 20;
+	io.write(reinterpret_cast<char *> (&i), sizeof(int));
+
+	// 重新读文件
+	io.seekg(0);
+	io.read(reinterpret_cast<char *> (&i), sizeof(int));
+	while (!io.eof()) {                 //读文件,直到遇到文件结束
+		cout << i << ' ';
+		io.read(reinterpret_cast<char *> (&i), sizeof(int));
+	}
+	io.close();
+	return 0;
+}
+代码清单14 - 13 Book类的设计与实现
+//文件名:book.h
+//Book类的设计
+#ifndef _book_h
+#define _book_h
+
+#include <cstring>
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+using namespace std;
+
+class Book
+{
+	int no;
+	char name[20];
+	int borrowed;
+public:
+	Book(const char *s = "", int total_no = 0);
+	void borrow(int readerNo);
+	void Return();
+	void display() const;
+};
+#endif
+
+//book.cpp
+#include "book.h"
+
+Book::Book(const char *s, int totalNo) { no = totalNo; borrowed = 0; strcpy(name, s); }
+
+void Book::borrow(int readerNo) {
+	if (borrowed != 0) cerr << "本书已被借,不能重复借\n"; else borrowed = readerNo;
+}
+
+void Book::Return() {
+	if (borrowed == 0) cerr << "本书没有被借,不能还\n";  else  borrowed = 0;
+}
+
+void Book::display() const {
+	cout << setw(10) << no << setw(20) << name << setw(10) << borrowed << endl;
+}
+
+
+代码清单14 - 14 图书馆系统的主函数
+//文件名:main.cpp
+//图书馆系统的主函数
+#include "book.h"
+void initialize();	//系统初始化
+void addBook();		//添加新书
+void borrowBook();	//借书
+void returnBook();	//还书
+void displayBook();	//显示所有的书目信息
+
+int main() {
+	int selector;
+
+	while (true) {
+		cout << "0 -- 退出\n";
+		cout << "1 -- 初始化文件\n";
+		cout << "2 -- 添加书\n";
+		cout << "3 -- 借书\n";
+		cout << "4 -- 还书\n";
+		cout << "5 -- 显示所有书目信息\n";
+		cout << "请选择(0-5):"; cin >> selector;
+		if (selector == 0) break;
+		switch (selector) {
+		case 1: initialize(); break;
+		case 2: addBook(); break;
+		case 3: borrowBook(); break;
+		case 4: returnBook(); break;
+		case 5: displayBook(); break;
+		}
+	}
+	return 0;
+}
+
+
+
+代码清单14 - 15 系统初始化函数
+// 系统初始化,将book文件清空,复位馆藏号
+void initialize() {
+	ofstream outfile("book");	//清空文件book
+	int no = 0;
+
+	outfile.write(reinterpret_cast<const char *>(&no), sizeof(int));
+	outfile.close();
+}
+
+
+
+代码清单14 - 16 添加新书的实现
+// 添加新书:将用户从键盘输入的图书加入到book文件中
+void addBook() {
+	char ch[20];
+	Book *bp;
+	int no;
+	fstream outfile("book");
+
+	// 读入藏书量
+	outfile.seekg(0);
+	outfile.read(reinterpret_cast<char *>(&no), sizeof(int));
+
+	// 生成需要添加的新书
+	++no;
+	cout << "请输入书名:"; cin >> ch;
+	bp = new Book(ch, no);
+
+	// 将书目信息添加到文件
+	outfile.seekp(0, ios::end);
+	outfile.write(reinterpret_cast<const char *>(bp), sizeof(*bp));
+	delete bp;
+
+	// 更新藏书量
+	outfile.seekp(0);
+	outfile.write(reinterpret_cast<const char *>(&no), sizeof(int));
+
+	outfile.close();
+}
+
+
+
+代码清单14 - 17 借书函数的实现
+// 借书:标记馆藏号为bookNo的图书被readerNo的读者借去
+void borrowBook() {
+	int bookNo, readerNo;
+	fstream iofile("book");					//以读写方式打开文件
+	Book bk;
+
+	cout << "请输入书号和读者号:";
+	cin >> bookNo >> readerNo;
+
+	iofile.seekg((bookNo - 1) * sizeof(Book) + sizeof(int));	//按照馆藏号定位到所读记录
+	iofile.read(reinterpret_cast<char *> (&bk), sizeof(Book));
+	//读一条记录,存入对象bk
+
+	bk.borrow(readerNo);						//调用成员函数修改借书标记字段
+
+	iofile.seekp((bookNo - 1) * sizeof(Book) + sizeof(int));	//按照馆藏号定位到所写记录
+	iofile.write(reinterpret_cast<const char *>(&bk), sizeof(Book));	//更新记录  
+
+	iofile.close();
+}
+
+
+代码清单14 - 18 还书函数的实现
+// 还书:标记图书bookNo已归还书库
+void returnBook() {
+	int bookNo;
+	fstream iofile("book");
+	Book bk;
+
+	cout << "请输入书号:";
+	cin >> bookNo;
+
+	iofile.seekg((bookNo - 1) * sizeof(Book) + sizeof(int));
+	iofile.read(reinterpret_cast<char *> (&bk), sizeof(Book));
+
+	bk.Return();		                                       //复位借书标记
+
+	iofile.seekp((bookNo - 1) * sizeof(Book) + sizeof(int));
+	iofile.write(reinterpret_cast<const char *>(&bk), sizeof(Book));
+
+	iofile.close();
+}
+
+
+代码清单14 - 19 显示书目信息的实现
+// 按入库的次序显示图书馆的所有图书
+void displayBook() {
+	ifstream infile("book");
+	Book bk;
+
+	infile.seekg(sizeof(int));                        // 定位到第一条书目信息
+	infile.read(reinterpret_cast<char *> (&bk), sizeof(Book));
+
+	while (!infile.eof()) {                             //顺序读文件,直到结束
+		bk.display();                                   //显示当前书目信息的内容
+		infile.read(reinterpret_cast<char *> (&bk), sizeof(Book));
+	}
+	infile.close();
+}
+
+
+
+
+代码清单14 - 20 字符串流使用示例
+//文件名:14-20.cpp
+//字符串流的使用示例
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+
+int main() {
+	string ch;
+	ostringstream os(ch);				//或ostringstream os; 定义一个字符串流类的对象
+
+	for (int i = 0; i <= 20; ++i) os << i << ' ';	//将1~20写入os
+	cout << os.str();					//显示写入os的内容,为1~20,数字间用空格分开
+	cout << endl;
+
+	istringstream is(os.str());		//用os对应的字符串初始化输入流is
+
+	while (is >> i) cout << i << '\t';	//从输入流读数据,直到输入流结束
+
+	return 0;
+}
+
+
+
+
+代码清单15 - 1 异常类的定义
+// 类DivideByZeroException是用户定义的类,用于表示除0错
+class DivideByZeroException
+{
+public:
+	DivideByZeroException() : message("attempted to divide by zero") {}
+	const char *what() const { return message; }
+private:
+	const char *message;
+};
+
+
+
+代码清单15 - 2 异常对象抛出的实例
+// 带有异常抛出的除法函数,发生异常时抛出一个事先定义的异常类对象
+double div(int x, int y) {
+	if (y == 0)  throw  DivideByZeroException();
+
+	return static_cast<double> (x) / y;
+}
+
+
+
+代码清单15 - 3 抛出异常表达式
+//带有异常抛出的除法函数,发生异常时抛出一个内置类型的值
+int div(int x, int y) {
+	if (y == 0) throw y;
+	return x / y;
+}
+
+
+
+代码清单15 - 4 带有异常检测的除法程序
+//文件名:15-4.cpp
+//带有异常检测的除法程序
+int main() {
+	int number1, number2;
+	double result;
+
+	cout << "Enter two integers (end-of-file to end): ";
+	while (cin >> number1 >> number2) {
+		try {
+			if (number2 == 0)  throw DivideByZeroException();
+			result = static_cast<double> (number1) / number2;
+			cout << "The quotient is: " << result << endl;
+		}
+		catch (DivideByZeroException ex) {
+			cout << "Exception occurred: " << ex.what() << '\n';
+		}
+		cout << "\nEnter two integers (end-of-file to end): ";
+	}
+	cout << endl;
+
+	return 0;
+}
+代码清单15 - 5 抛出异常的函数的应用
+//文件名:15-5.cpp
+//抛出异常的函数的应用
+int main() {
+	int number1, number2;
+	double result;
+
+	cout << "Enter two integers (end-of-file to end): ";
+	while (cin >> number1 >> number2) {
+		try {
+			result = div(number1, number2);
+			cout << "The quotient is: " << result << endl;
+		}
+		catch (DivideByZeroException ex) {
+			cout << "Exception occurred: " << ex.what() << '\n‘;   }
+				cout << "\nEnter two integers (end-of-file to end): ";
+		}
+		cout << endl;
+
+		return 0;
+	}
+}
+
+
+代码清单15 - 6 只捕获类型, 不指明对象的实例
+//文件名:15-6.cpp
+//只捕获类型,不指明对象的异常捕获
+int main() {
+	try {
+		cout << div(6, 3) << endl;
+		cout << div(10, 0) << endl;
+		cout << div(5, 2) << endl;
+	}
+	catch (int) { cout << "divide by zero" << endl; }
+	cout << "It’s Over" << endl;
+
+	return 0;
+}
+
+
+代码清单15 - 7 catch (…)和再抛出异常实例
+// 文件名:15-7.cpp
+// catch(…)和再抛出异常实例
+#include <iostream>
+using namespace std;
+
+// 定义异常类
+class A {};
+class B {};
+class C {};
+
+void fun1(int i);
+void fun2(int i);
+
+int main() {
+	for (int i = 0; i < 3; ++i)
+		try { fun2(i); }
+	catch (A) { cout << "main函数输出 i = 0" << endl; }
+	catch (B) { cout << "main函数输出 i = 1" << endl; }
+
+	return 0;
+}
+
+void fun1(int i) {
+	switch (i) {
+	case 0: throw A();
+	case 1: throw B();
+	default: throw C();
+	}
+}
+
+void fun2(int i) {
+	try { fun1(i); }
+	catch (C) { cout << "fun2函数输出 i > 1" << endl; }
+	catch (...) { throw; }
+}
+
+
+
+
+代码清单12 - 8 采用异常处理机制的解一元二次方程的程序
+// 文件名:12-8.cpp
+//采用异常处理机制的解一元二次方程的程序
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+//  异常类定义
+class noRoot {};
+class divByZero {};
+
+double Sqrt(double x) {
+	if (x < 0) throw noRoot();
+	return sqrt(x);
+}
+
+double div(double x, double y) {
+	if (y == 0) throw divByZero();
+	return x / y;
+}
+
+int main() {
+	double a, b, c, x1, x2, dlt;
+
+	cout << "请输入3个参数:" << endl;
+	cin >> a >> b >> c;
+
+	try {
+		dlt = Sqrt(b * b - 4 * a * c);
+		x1 = div(-b + dlt, 2 * a);
+		x2 = div(-b - dlt, 2 * a);
+		cout << "x1=" << x1 << "   x2=" << x2 << endl;
+	}
+	catch (noRoot) { cout << "无根" << endl; }
+	catch (divByZero) { cout << "不是一元二次方程" << endl; }
+
+	return 0;
+}
+
+
+
+
+代码清单15 - 9 抛出指定异常的函数示例
+//文件名:15-9.cpp
+//抛出指定异常的函数示例
+#include <iostream>
+using namespace  std;
+class up {};
+class down {};
+void f(int i) throw(up, down);		//f函数可能抛出两类异常:up和down
+
+int main() {
+	for (int i = 1; i <= 3; ++i)
+		try { f(i); }
+	catch (up) { cout << "up catched" << endl; }
+	catch (down) { cout << "down catched" << endl; }
+	return 0;
+}
+
+void f(int i) throw(up, down) {
+	switch (i) {
+	case 1: throw up();
+	case 2: throw down();
+	}
+}
+
+
+
+
+
+代码清单16 - 1 用数组实现的顺序容器类
+// 文件名: seqList.h
+// 用数组实现的顺序容器的定义
+template <class T>
+class seqList
+{
+private:
+	int size;									//数组规模
+	int current_size;							//容器中的对象个数
+	T *storage;								//数组的起始地址
+	void doubleSpace();						//将数组容量扩大一倍
+
+public:
+	seqList(int s = 10) :size(s) { storage = new T[size]; current_size = 0; }
+	~seqList() { delete[] storage; }
+	void push_back(const T &x)					//在容器尾添加对象
+	{
+		if (size == current_size) doubleSpace();
+		storage[current_size++] = x;
+	}
+	void pop_back()							//删除容器尾的对象
+	{
+		if (current_size == 0)  cerr << "这是一个空容器\n"; else --current_size;
+	}
+	T &operator[](int i) { return storage[i]; }	//下标运算符重载
+
+	class Itr
+	{								//迭代器类的定义
+		T *pos;								//指向容器中的某一对象
+	public:
+		Itr(T *obj = NULL) { pos = obj; }
+		Itr &operator++() { ++pos;  return *this; } 			//指向容器中的下一对象
+		T &operator*() { return *pos; }						//取迭代器指向的对象值
+		bool operator!=(const Itr &p) { return pos != p.pos; }	//比较两迭代器对象是否相同
+
+		friend class seqList<T>;
+	};
+
+	Itr begin() { return Itr(storage); }				//返回指向第一个对象的迭代器
+	Itr end() { return Itr(storage + current_size); }	//返回指向最后一个对象的迭代器
+	void insert(Itr &p, const T &x);				//在迭代器指定的位置上插入对象
+	void erase(const Itr &p);						//删除迭代器指定的位置中的对象
+};
+
+
+代码清单16 - 2 用数组实现的顺序容器类的成员函数的实现
+// 文件名: seqList.cpp
+// seqList类的成员函数的定义
+#include “seqList.h”
+template <class T>
+void seqList<T>::doubleSpace() {
+	T *tmp = storage;
+
+	size *= 2;
+	storage = new T[size];
+	for (int i = 0; i < current_size; ++i) storage[i] = tmp[i];
+	delete[] tmp;
+}
+
+template <class T>
+void seqList<T>::insert(Itr &p, const T &x) {
+	T *q;
+
+	if (size == current_size) {
+		int offset = p.pos - storage;
+		doubleSpace();
+		p.pos = storage + offset;			//迭代器指回新空间中的相应对象
+	}
+	q = storage + current_size;
+
+	while (q > p.pos) { *q = *(q - 1); --q; }	//迭代器指出的对象后的所有对象后移一个位置
+
+	*p.pos = x;
+	++current_size;
+}
+
+
+template <class T>
+void seqList<T>::erase(const Itr &p) {
+	T *q = p.pos;
+
+	--current_size;
+	while (q < storage + current_size) { *q = *(q + 1);   ++q; }
+}
+
+
+
+代码清单16 - 3 SeqList类的使用
+//文件名:16-3.cpp
+//顺序容器的使用示例
+
+#include <iostream>
+#include “seqList.h”
+using namespace std;
+
+int main() {
+	seqList<int>  sq(10);		//定义一个存放整型对象的顺序容器,初始容量为10个对象
+	seqList<int>::Itr itr1;	//定义一个对应的迭代器类的对象
+
+	for (int i = 0; i < 10; ++i) sq.push_back(2 * i + 1);
+
+	cout << "用下标运算符输出:\n";
+	for (i = 0; i < 10; ++i) cout << sq[i] << '\t';
+
+	cout << "用迭代器输出:\n";
+	for (itr1 = sq.begin(); itr1 != sq.end(); ++itr1)  cout << *itr1 << '\t';
+
+	//插入0,2,4,6,8,10,12,14,16,18
+	for (itr1 = sq.begin(), i = 0; i < 20; ++itr1, ++itr1, i += 2) sq.insert(itr1, i);
+
+	cout << "插入0,2,4,6,8,10,12,14,16,18后:\n";
+	for (itr1 = sq.begin(); itr1 != sq.end(); ++itr1)  cout << *itr1 << '\t';
+
+	//删除0,2,4,6,8,10,12,14,16,18
+	for (itr1 = sq.begin(); itr1 != sq.end(); ++itr1)  sq.erase(itr1);
+
+	cout << "删除0,2,4,6,8,10,12,14,16,18后:\n";
+	for (itr1 = sq.begin(); itr1 != sq.end(); ++itr1)  cout << *itr1 << '\t';
+
+	return 0;
+}
+
+代码清单16 - 4 用链表实现的顺序容器
+// 文件名:linkList.h
+//用链表实现的顺序容器类的定义
+template <class elemType>
+class linkList
+{
+private:
+	struct Node
+	{
+		elemType  data;
+		Node  *next;
+
+		Node(const elemType &x, Node  *N = NULL) { data = x; next = N; }
+		Node() :next(NULL) {}
+		~Node() {}
+	};
+
+	Node  *head;
+	void makeEmpty();
+
+public:
+	linkList() { head = new Node; }
+	~linkList() { makeEmpty();  delete head; }
+	class Itr
+	{
+	private:  Node  *current; //用指向Node的指针表示对象位置
+	public:
+		Itr(Node *p) { current = p; }
+		bool operator()() const { return current != NULL; }
+		bool isHead() const { return current == head; }
+		const elemType &operator*() const { return current->data; }
+		void operator++() { current = current->next; }
+
+		friend class linkList<elemType>;
+	};
+
+	void insert(Itr &p, const elemType &x) {
+		p.current->next = new node(x, p.current->next);
+		p.current = p.current->next;
+	}
+	void erase(Itr &p) {
+		Node  *q = p.current->next;
+		if (!q) return;
+		p.current->next = q->next; delete q;
+	}
+	Itr begin() { return Itr(head->next); }
+	Itr GetHead() { return Itr(head); }
+};
+
+
+
+代码清单16 - 5 makeEmpty函数的实现
+// linkList.cpp
+// linkList类的实现文件
+template <class elemType>
+void linkList<elemType>::makeEmpty() {
+	Node  *p, *q;
+
+	p = head->next;
+	head->next = NULL; //将链表设为空链表
+
+	while (p != NULL) { q = p->next; delete p; p = q; } //回收链表中的所有结点
+}
+
+
+
+代码清单16 - 6 linkList类的使用
+//文件名:16-6.cpp
+//listLink的使用示例
+
+#include <iostream>
+#include “linkList.h”
+using namespace std;
+
+int main() {
+	linkList<int>  lq;					//定义一个整型的容器lq
+	linkList<int>::Itr itr1 = lq.GetHead();	//定义一个迭代器,并让它指向lq的头结点
+
+	for (int i = 0; i < 10; ++i) lq.insert(itr1, 2 * i + 1);
+
+	cout << "用迭代器输出:\n";
+	for (itr1 = lq.begin(); itr1(); ++itr1)  cout << *itr1 << '\t';
+
+	//插入0,2,4,6,8,10,12,14,16,18
+	for (itr1 = lq.GetHead(), i = 0; i < 20; ++itr1, i += 2) lq.insert(itr1, i);
+
+	cout << "插入0,2,4,6,8,10,12,14,16,18后:\n";
+	for (itr1 = lq.begin(); itr1(); ++itr1) cout << *itr1 << '\t';
+
+	//删除0,2,4,6,8,10,12,14,16,18
+	for (itr1 = lq.GetHead(); itr1(); ++itr1) lq.erase(itr1);
+
+	cout << "删除0,2,4,6,8,10,12,14,16,18后:\n";
+	for (itr1 = lq.begin(); itr1(); ++itr1) cout << *itr1 << '\t';
+
+	return 0;
+}
